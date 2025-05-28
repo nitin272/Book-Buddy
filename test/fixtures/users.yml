@@ -1,4 +1,4 @@
 one:
   name: Nitin
   email: nitinsoni95092@gmail.com
-  password_digest: "$2a$12$H.ogbVuZA8bIKPOfU9gt0OSAwlgpmLyZB4rTIoYoeYUhZB2lcOb7y"
+  password_digest: <%= BCrypt::Password.create('Nitin@11') %>

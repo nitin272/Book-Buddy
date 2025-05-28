@@ -2,7 +2,7 @@ class SessionsController < ApplicationController
   def new
     # login form
   end
-  
+
   def create
     user = User.find_by(email: params[:email])
     if user && user.authenticate(params[:password])
@@ -13,7 +13,7 @@ class SessionsController < ApplicationController
       render :new, status: :unprocessable_entity
     end
   end
-  
+
   def destroy
     session[:user_id] = nil
     redirect_to login_path, notice: "Logged out successfully!"

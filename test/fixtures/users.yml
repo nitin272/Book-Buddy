@@ -1,9 +1,4 @@
 one:
-  name: ExampleUser1
-  email: example1@example.com
-  password_digest: "$2a$12$SnPSEYDZUaP58UMflc31Ou1DwQjWcf8mnLmrlcqHaQ6Y4SFTekL2W"
-
-two:
-  name: ExampleUser2
-  email: example2@example.com
-  password_digest: "$2a$12$SnPSEYDZUaP58UMflc31Ou1DwQjWcf8mnLmrlcqHaQ6Y4SFTekL2W"
+  name: Nitin
+  email: nitinsoni9509@gmail.com
+  password_digest: "$2a$12$H.ogbVuZA8bIKPOfU9gt0OSAwlgpmLyZB4rTIoYoeYUhZB2lcOb7y"

@@ -7,7 +7,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create" do
-    post login_path, params: { email: "user@example.com", password: "password" }
+    post login_path, params: { email: "nitinsoni95092@gmail.com", password: "Nitin@11" }
     assert_response :redirect
   end
 

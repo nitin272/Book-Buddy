@@ -12,10 +12,7 @@ Rails.application.routes.draw do
   # Health check route
   get "up" => "rails/health#show", as: :rails_health_check
 
-  get    "/dashboard", to: "dashboard#index"
+  get "/dashboard", to: "dashboard#index"
 
   root "sessions#new"
-
-
-
 end

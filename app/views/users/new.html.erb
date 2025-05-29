@@ -1,11 +1,27 @@
-<% content_for :title, "New user" %>
+<h1>Sign Up</h1>
 
-<h1>New user</h1>
+<%= form_with model: @user, url: signup_path do |f| %>
+  <div>
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
 
-<%= render "form", user: @user %>
+  <div>
+    <%= f.label :email %><br>
+    <%= f.email_field :email %>
+  </div>
 
-<br>
+  <div>
+    <%= f.label :password %><br>
+    <%= f.password_field :password %>
+  </div>
 
-<div>
-  <%= link_to "Back to users", users_path %>
-</div>
+  <div>
+    <%= f.label :password_confirmation %><br>
+    <%= f.password_field :password_confirmation %>
+  </div>
+
+  <div>
+    <%= f.submit "Sign Up" %>
+  </div>
+<% end %>

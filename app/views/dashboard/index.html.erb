@@ -1,0 +1,11 @@
+<h1>Welcome, <%= @user.name %>!</h1>
+
+<p>You have successfully logged in.</p>
+
+<ul>
+  <li>Email: <%= @user.email %></li>
+  <li>Name: <%= @user.name %></li>
+  <!-- Add more user info as you want -->
+</ul>
+
+<%= link_to "Log Out", logout_path, method: :delete %>

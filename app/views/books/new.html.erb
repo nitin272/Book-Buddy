@@ -1,0 +1,5 @@
+<h1>Add a New Book for <%= @user.name %></h1>
+
+<%= render 'form', user: @user, book: @book %>
+
+<%= link_to "Back to Books", user_books_path(@user) %>

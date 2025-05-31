@@ -1,6 +1,4 @@
 class BooksControllerTest < ActionDispatch::IntegrationTest
-
-
   setup do
     @user = users(:one)
     @book = books(:one)

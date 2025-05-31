@@ -1,0 +1,15 @@
+<h1><%= @user.name %>'s Books</h1>
+
+<%= link_to "New Book", new_user_book_path(@user) %>
+
+<ul>
+  <% @books.each do |book| %>
+    <li>
+      <%= link_to book.title, user_book_path(@user, book) %> by <%= book.author %>
+      (<%= link_to "Edit", edit_user_book_path(@user, book) %> |
+       <%= link_to "Delete", user_book_path(@user, book), method: :delete, data: { confirm: "Are you sure?" } %>)
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to "Back to Users", users_path %>

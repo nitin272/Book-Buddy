@@ -1,60 +1,56 @@
 class BooksController < ApplicationController
-  before_action :set_user
-  before_action :set_book, only: [ :show, :edit, :update, :destroy ]
+  before_action :set_book, only: [:show, :edit, :update, :destroy]
 
-  # GET /users/:user_id/books
+  # GET /books
   def index
-    @books = @user.books.all
+    @books = current_user.books
   end
 
-  # GET /users/:user_id/books/:id
+  # GET /books/:id
   def show
-    # @book is already set by before_action
+    # @book is set by set_book
   end
 
-  # GET /users/:user_id/books/new
+  # GET /books/new
   def new
-    @book = @user.books.new
+    @book = current_user.books.new
   end
 
-  # POST /users/:user_id/books
+  # POST /books
   def create
-    @book = @user.books.new(book_params)
+    @book = current_user.books.new(book_params)
     if @book.save
-      redirect_to user_books_path(@user), notice: "Book was successfully created."
+      redirect_to books_path, notice: "Book was successfully created."
     else
       render :new, status: :unprocessable_entity
     end
   end
 
-  # GET /users/:user_id/books/:id/edit
+  # GET /books/:id/edit
   def edit
-    # @book is already set by before_action
+    # @book is set by set_book
   end
 
-  # PATCH/PUT /users/:user_id/books/:id
+  # PATCH/PUT /books/:id
   def update
     if @book.update(book_params)
-      redirect_to user_book_path(@user, @book), notice: "Book was successfully updated."
+      redirect_to book_path(@book), notice: "Book was successfully updated."
     else
       render :edit, status: :unprocessable_entity
     end
   end
 
-  # DELETE /users/:user_id/books/:id
+  # DELETE /books/:id
   def destroy
     @book.destroy
-    redirect_to user_books_path(@user), notice: "Book was successfully deleted."
+    redirect_to books_path, notice: "Book was successfully deleted."
   end
 
   private
 
-  def set_user
-    @user = User.find(params[:user_id])
-  end
-
   def set_book
-    @book = @user.books.find(params[:id])
+    # Only find book among current_user's books for security
+    @book = current_user.books.find(params[:id])
   end
 
   def book_params

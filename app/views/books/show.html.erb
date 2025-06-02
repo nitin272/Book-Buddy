@@ -1,7 +1,9 @@
-<h1><%= @book.title %></h1>
-<p><strong>Author:</strong> <%= @book.author %></p>
-<p><strong>Genre:</strong> <%= @book.genre %></p>
-<p><strong>Notes:</strong> <%= @book.notes %></p>
+<div class="container mt-5">
+  <h1><%= @book.title %></h1>
+  <p><strong>Author:</strong> <%= @book.author %></p>
+  <p><strong>Genre:</strong> <%= @book.genre %></p>
+  <p><strong>Notes:</strong> <%= @book.notes %></p>
 
-<%= link_to "Edit Book", edit_user_book_path(@user, @book) %> |
-<%= link_to "Back to Books", user_books_path(@user) %>
+  <%= link_to "Edit Book", edit_book_path(@book), class: "btn btn-warning" %>
+  <%= link_to "Back to Books", books_path, class: "btn btn-secondary" %>
+</div>

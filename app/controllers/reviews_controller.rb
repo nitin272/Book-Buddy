@@ -21,7 +21,7 @@ end
   def create
     @review = @book.reviews.new(review_params)
     if @review.save
-      redirect_to dashboard_path(@book), notice: "Review created successfully."
+      redirect_to dashboard_path(@book), notice: "Review was  created successfully."
     else
       render :new, status: :unprocessable_entity
     end
@@ -29,7 +29,7 @@ end
 
   def update
     if @review.update(review_params)
-      redirect_to dashboard_path(@book), notice: "Review updated successfully."
+      redirect_to dashboard_path(@book), notice: "Review was updated successfully."
     else
       render :edit, status: :unprocessable_entity
     end
@@ -37,7 +37,7 @@ end
 
   def destroy
     @review.destroy
-    redirect_to dashboard_path(@book), notice: "Review deleted successfully."
+    redirect_to dashboard_path(@book), notice: "Review was  deleted successfully."
   end
 
   private

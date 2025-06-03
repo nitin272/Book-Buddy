@@ -21,7 +21,7 @@ end
 
   def create
   @review = @book.reviews.build(review_params)
-  @review.user = current_user
+
 
   if @review.save
     redirect_to book_review_path(@book, @review), notice: "Review was successfully created."

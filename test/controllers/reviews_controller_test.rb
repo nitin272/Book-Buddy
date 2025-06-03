@@ -1,0 +1,49 @@
+require "test_helper"
+
+class ReviewsControllerTest < ActionDispatch::IntegrationTest
+  setup do
+    @review = reviews(:one)
+    @book = books(:one)  # Make sure this corresponds to the review's book
+  end
+
+  test "should get index" do
+    get book_reviews_url(@book)
+    assert_response :success
+  end
+
+  test "should get new" do
+    get new_book_review_url(@book)
+    assert_response :success
+  end
+
+  test "should create review" do
+    assert_difference("Review.count") do
+      post book_reviews_url(@book), params: { review: { book_id: @book.id, comment: "Great!", rating: 5 } }
+    end
+
+    assert_redirected_to dashboard_path(@book)
+  end
+
+  test "should show review" do
+    get book_review_url(@book, @review)
+    assert_response :success
+  end
+
+  test "should get edit" do
+    get edit_book_review_url(@book, @review)
+    assert_response :success
+  end
+
+  test "should update review" do
+    patch book_review_url(@book, @review), params: { review: { comment: "Updated comment", rating: 4 } }
+    assert_redirected_to dashboard_path(@book)
+  end
+
+  test "should destroy review" do
+    assert_difference("Review.count", -1) do
+      delete book_review_url(@book, @review)
+    end
+
+    assert_redirected_to dashboard_path(@book)
+  end
+end

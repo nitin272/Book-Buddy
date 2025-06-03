@@ -36,12 +36,12 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
     assert_difference("Book.count") do
       post books_path, params: { book: { title: "New Book", author: "New Author" } }
     end
-    assert_redirected_to books_path
+    assert_redirected_to dashboard_path
   end
 
   test "should update book" do
     patch book_path(@book), params: { book: { title: "Updated Title" } }
-    assert_redirected_to book_path(@book)
+    assert_redirected_to dashboard_path(@book)
     @book.reload
     assert_equal "Updated Title", @book.title
   end
@@ -50,7 +50,7 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
     assert_difference("Book.count", -1) do
       delete book_path(@book)
     end
-    assert_redirected_to books_path
+    assert_redirected_to dashboard_path
   end
 
   test "should not show other users books" do

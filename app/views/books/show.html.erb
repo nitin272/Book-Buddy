@@ -1,9 +1,56 @@
 <div class="container mt-5">
   <h1><%= @book.title %></h1>
+
   <p><strong>Author:</strong> <%= @book.author %></p>
   <p><strong>Genre:</strong> <%= @book.genre %></p>
   <p><strong>Notes:</strong> <%= @book.notes %></p>
 
-  <%= link_to "Edit Book", edit_book_path(@book), class: "btn btn-warning" %>
-  <%= link_to "Back to Books", books_path, class: "btn btn-secondary" %>
+  <div class="btn-group mb-4" role="group">
+    <%= link_to "Edit", edit_book_path(@book), class: "btn btn-warning" %>
+    <%= link_to "Back", books_path, class: "btn btn-secondary" %>
+    <%= button_to "Delete", book_path(@book), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+  </div>
+
+  <hr>
+
+  <h3>Reviews</h3>
+
+  <% if @book.reviews.any? %>
+    <ul class="list-group mb-4">
+      <% @book.reviews.each do |review| %>
+        <% next if review.id.nil? %> <!-- skip unsaved reviews -->
+
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <div>
+            <strong>Rating:</strong> <%= review.rating %> | 
+            <strong>Comment:</strong> <%= review.comment %> |
+            <small class="text-muted"><%= review.created_at.strftime("%b %d, %Y") if review.created_at.present? %></small>
+          </div>
+
+          <div>
+            <%= link_to "Edit", edit_book_review_path(@book, review), class: "btn btn-sm btn-warning me-2" %>
+            <%= button_to "Delete", book_review_path(@book, review), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-danger" %>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>No reviews yet.</p>
+  <% end %>
+
+  <h4>Add a Review</h4>
+
+  <%= form_with(model: [@book, @review], local: true) do |form| %>
+    <div class="mb-3">
+      <%= form.label :rating %>
+      <%= form.number_field :rating, in: 1..5, step: 1, class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :comment %>
+      <%= form.text_area :comment, class: "form-control" %>
+    </div>
+
+    <%= form.submit "Submit", class: "btn btn-primary" %>
+  <% end %>
 </div>

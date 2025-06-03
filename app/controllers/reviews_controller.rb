@@ -7,8 +7,9 @@ class ReviewsController < ApplicationController
   end
 
   def show
-    @review = @book.reviews.find(params[:id])
-  end
+  @book = Book.find(params[:book_id])
+  @review = @book.reviews.find(params[:id])
+end
 
   def new
     @review = @book.reviews.build

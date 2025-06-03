@@ -2,14 +2,14 @@ require "test_helper"
 
 class ReviewsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @user = users(:one)  # Your fixture user
+    @user = users(:one)  
     @book = books(:one)
     @review = reviews(:one)
 
-    # Log in the user via POST request
+
     post login_path, params: { email: @user.email, password: "nitin" }
 
-    # Check login was successful (optional)
+
     assert_equal @user.id, session[:user_id]
   end
 

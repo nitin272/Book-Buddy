@@ -1,0 +1,51 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3 shadow">
+  <div class="container">
+    <!-- Brand -->
+    <a class="navbar-brand d-flex align-items-center" href="#">
+      <i class="fas fa-book-reader me-2 fs-4"></i>
+      <span class="fs-4 fw-bold">BookBuddy</span>
+    </a>
+
+    <!-- Toggler for mobile -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar content -->
+    <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+
+      <!-- Centered nav links -->
+      <ul class="navbar-nav mx-auto text-center">
+        <li class="nav-item">
+          <a class="nav-link px-3" href="/"><i class="fas fa-home me-1"></i> Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link px-3" href="/dashboard"><i class="fas fa-tachometer-alt me-1"></i> Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link px-3" href="/about"><i class="fas fa-info-circle me-1"></i> About</a>
+        </li>
+      </ul>
+
+      <!-- Right-side user/auth buttons -->
+      <div class="d-flex align-items-center gap-2">
+        <% if logged_in? %>
+          <span class="navbar-text text-light me-2">
+            <i class="fas fa-user-circle me-1"></i> Welcome, <%= current_user.name || 'User' %>
+          </span>
+          <%= link_to logout_path, method: :delete, class: 'btn btn-outline-light btn-sm' do %>
+            <i class="fas fa-sign-out-alt me-1"></i> Logout
+          <% end %>
+        <% else %>
+          <%= link_to login_path, class: 'btn btn-outline-light btn-sm me-2' do %>
+            <i class="fas fa-sign-in-alt me-1"></i> Login
+          <% end %>
+          <%= link_to signup_path, class: 'btn btn-light btn-sm' do %>
+            <i class="fas fa-user-plus me-1"></i> Sign Up
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</nav>

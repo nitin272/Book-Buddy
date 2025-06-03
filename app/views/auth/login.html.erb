@@ -8,6 +8,12 @@
   <div class="card shadow p-5" style="width: 100%; max-width: 500px;">
     <h2 class="text-center mb-4 fw-bold">🔐 Login to BookBuddy</h2>
 
+    <% if flash.now[:alert] %>
+      <div class="alert alert-danger" role="alert">
+        <%= flash.now[:alert] %>
+      </div>
+    <% end %>
+
     <%= form_with url: login_path, method: :post, local: true do |f| %>
       <div class="mb-3">
         <%= f.label :email, class: "form-label" %>

@@ -7,7 +7,9 @@
 <div style="background: linear-gradient(135deg, #1e3c72, #2a5298); min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 40px;">
   <div class="card shadow p-5" style="width: 100%; max-width: 500px;">
     <h2 class="text-center mb-4 fw-bold text-dark">📝 Create Your Account</h2>
-
+    <% if flash[:alert] %>
+    <div class="alert alert-warning"><%= flash[:alert] %></div>
+    <% end %>
     <%= form_with model: @user, url: signup_path, local: true do |f| %>
       <div class="mb-3">
         <%= f.label :name, class: "form-label" %>

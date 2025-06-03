@@ -1,24 +1,26 @@
-# app/controllers/users_controller.rb
 class UsersController < ApplicationController
-  def index
-    @users = User.all
-  end
-
   def new
     @user = User.new
+    render "auth/signup"  # renders app/views/auth/signup.html.erb
   end
 
   def create
-  @user = User.new(user_params)
+    # Check if user with email already exists
+    existing_user = User.find_by(email: user_params[:email])
 
-  if @user.save
-    session[:user_id] = @user.id
-    redirect_to dashboard_path, notice: "Successfully signed up!"
-  else
-    render :new, status: :unprocessable_entity
+    if existing_user
+      flash[:alert] = "Email already exists, please login."
+      redirect_to login_path
+    else
+      @user = User.new(user_params)
+      if @user.save
+        session[:user_id] = @user.id
+        redirect_to dashboard_path, notice: "Successfully signed up!"
+      else
+        render "auth/signup", status: :unprocessable_entity
+      end
+    end
   end
-end
-
 
   private
 

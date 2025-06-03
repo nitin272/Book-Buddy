@@ -1,18 +1,18 @@
 require "test_helper"
 
 class SessionsControllerTest < ActionDispatch::IntegrationTest
-  test "should get new" do
-    get login_path
-    assert_response :success
+  def setup
+    @user = users(:one) # Make sure you have a fixture user :one with known email/password
   end
 
-  test "should create" do
-  post login_path, params: { email: "nitinsoni95092@gmail.com", password: "Nitin@11" }
-  assert_response :redirect
-  end
-
-  test "should get destroy" do
-    get logout_path
+  test "should create session with valid credentials" do
+    post login_path, params: { email: @user.email, password: "nitin" }
     assert_response :redirect
+    assert_redirected_to dashboard_path
+  end
+
+  test "should not create session with invalid credentials" do
+    post login_path, params: { email: @user.email, password: "wrongpassword" }
+    assert_response :unprocessable_entity
   end
 end

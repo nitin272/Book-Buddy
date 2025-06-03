@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
   def new
-    # login form
+    render "auth/login"
   end
 
   def create
@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
       redirect_to dashboard_path, notice: "Successfully logged in!"
     else
       flash.now[:alert] = "Invalid email or password"
-      render :new, status: :unprocessable_entity
+      render "auth/login", status: :unprocessable_entity
     end
   end
 

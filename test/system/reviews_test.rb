@@ -45,10 +45,14 @@ class ReviewsTest < ApplicationSystemTestCase
     click_on "Back"
   end
 
-  test "should destroy Review" do
-    visit book_review_url(@book, @review)
+ test "should destroy Review" do
+  visit book_review_url(@book, @review)
+  
+  accept_confirm do
     click_on "Destroy this review", match: :first
-
-    assert_text "Review was successfully destroyed"
   end
+
+  assert_text "Review was successfully destroyed"
+end
+
 end

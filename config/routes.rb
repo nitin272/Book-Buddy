@@ -4,7 +4,10 @@ Rails.application.routes.draw do
   get "home/index"
 
   resources :users
-  resources :books
+  resources :books do
+    resources :reviews
+  end
+
 
   get "dashboard/index"
 
@@ -23,6 +26,4 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   get "/dashboard", to: "dashboard#index"
-
-  # root "sessions#new"
 end

@@ -1,0 +1,8 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render partial: "reviews/review", locals: { review: @review } %>
+
+<div>
+  <%= link_to "Edit this review", edit_book_review_path(@book, @review) %>
+  <%= link_to "Back", book_reviews_path(@book), class: "btn btn-secondary" %>
+<%= button_to "Destroy this review", book_review_path(@book, @review), method: :delete %>

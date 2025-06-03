@@ -22,6 +22,16 @@
       <%= form.text_field :author, class: "form-control", required: true %>
     </div>
 
+    <div class="mb-3">
+      <%= form.label :genre %>
+      <%= form.text_field :genre, class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :notes %>
+      <%= form.text_area :notes, class: "form-control" %>
+    </div>
+
     <%= form.submit "Update Book", class: "btn btn-primary" %>
   <% end %>
 

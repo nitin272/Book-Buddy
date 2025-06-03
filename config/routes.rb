@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   root "home#index"
   get "home/index"
 
-  resources :users 
+  resources :users
   resources :books
 
   get "dashboard/index"
@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   get    "/login",   to: "sessions#new"
   post   "/login",   to: "sessions#create"
   get    "/logout",  to: "sessions#destroy"
-  get '/about', to: 'pages#about'
+  get "/about", to: "pages#about"
 
 
 

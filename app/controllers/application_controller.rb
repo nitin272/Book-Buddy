@@ -1,5 +1,4 @@
 class ApplicationController < ActionController::Base
-  
   allow_browser versions: :modern  # optional, based on your setup
 
   helper_method :current_user, :logged_in?

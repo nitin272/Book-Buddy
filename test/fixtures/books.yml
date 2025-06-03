@@ -1,4 +1,9 @@
 one:
-  title: "Sherlock Holmes"
-  author: "Conan Doyle"
+  title: "Sample Book"
+  author: "Sample Author"
   user: one
+
+two:
+  title: "Another Book"
+  author: "Another Author"
+  user: two

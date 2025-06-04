@@ -54,7 +54,6 @@ class ReviewsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy Review" do
-    visit book_url(@book)
     click_on "Destroy this review", match: :first
 
     assert_text "Review was successfully destroyed"

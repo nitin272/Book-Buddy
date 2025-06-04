@@ -1,16 +1,13 @@
-<p style="color: green"><%= notice %></p>
-
-<% content_for :title, "Reviews" %>
-
 <h1>Reviews</h1>
 
-<div id="reviews">
-  <% @reviews.each do |review| %>
-    <%= render review %>
-    <p>
-      <%= link_to "Show this review", book_review_path(@book, review) %>
-    </p>
-  <% end %>
-</div>
+<%= link_to "New review", new_book_review_path(@book), class: "btn btn-primary" %>
 
-<%= link_to "New review", new_book_review_path(@book) %>
+<ul>
+  <% @reviews.each do |review| %>
+    <li>
+      <p><strong>Comment:</strong> <%= review.comment %></p>
+      <p><strong>Rating:</strong> <%= review.rating %></p>
+      <%= link_to "Show", book_review_path(@book, review) %>
+    </li>
+  <% end %>
+</ul>

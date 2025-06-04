@@ -54,10 +54,10 @@ class ReviewsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy Review" do
-    assert_difference('Review.count', -1) do
+    assert_difference("Review.count", -1) do
     delete book_review_path(@book, @review)
   end
 
-  assert_redirected_to book_path(@book)  # Or wherever you redirect after destroy
+  assert_redirected_to book_path(@book)
   end
 end

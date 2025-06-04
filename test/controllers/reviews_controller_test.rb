@@ -54,8 +54,10 @@ class ReviewsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy Review" do
-    click_on "Destroy this review", match: :first
+    assert_difference('Review.count', -1) do
+    delete book_review_path(@book, @review)
+  end
 
-    assert_text "Review was successfully destroyed"
+  assert_redirected_to book_path(@book)  # Or wherever you redirect after destroy
   end
 end

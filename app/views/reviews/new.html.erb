@@ -1,5 +1,11 @@
+<% content_for :title, "New review" %>
+
 <h1>New review</h1>
 
 <%= render "form", review: @review %>
 
-<%= link_to "Back", book_reviews_path(@book), class: "btn btn-link" %>
+<br>
+
+<div>
+  <%= link_to "Back", book_reviews_path(@book), class: "btn btn-secondary" %>
+</div>

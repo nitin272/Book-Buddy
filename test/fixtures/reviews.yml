@@ -1,11 +1,9 @@
 one:
-  rating: 1
-  comment: MyText
+  comment: "Awesome read"
+  rating: 5
   book: one
-  user: one
 
 two:
-  rating: 1
-  comment: MyText
+  comment: "Not my type"
+  rating: 2
   book: two
-  user: two

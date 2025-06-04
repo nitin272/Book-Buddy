@@ -22,15 +22,15 @@ class ReviewsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create review" do
     assert_difference("Review.count") do
-      post book_reviews_url(@book), params: { 
-        review: { 
-          book_id: @book.id, 
-          comment: "Great!", 
-          rating: 5 
-        } 
+      post book_reviews_url(@book), params: {
+        review: {
+          book_id: @book.id,
+          comment: "Great!",
+          rating: 5
+        }
       }
     end
-    assert_redirected_to book_url(@book) 
+    assert_redirected_to book_url(@book)
   end
 
   test "should show review" do
@@ -44,19 +44,19 @@ class ReviewsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update review" do
-    patch book_review_url(@book, @review), params: { 
-      review: { 
-        comment: "Updated comment", 
-        rating: 4 
-      } 
+    patch book_review_url(@book, @review), params: {
+      review: {
+        comment: "Updated comment",
+        rating: 4
+      }
     }
-    assert_redirected_to book_url(@book)  
+    assert_redirected_to book_url(@book)
   end
 
-  test "should destroy review" do
-    assert_difference("Review.count", -1) do
-      delete book_review_url(@book, @review)
-    end
-    assert_redirected_to book_url(@book)
+  test "should destroy Review" do
+    visit book_url(@book)
+    click_on "Destroy this review", match: :first
+
+    assert_text "Review was successfully destroyed"
   end
 end

@@ -4,7 +4,6 @@ require "rails/test_help"
 
 module ActiveSupport
   class TestCase
-
     parallelize(workers: :number_of_processors)
 
 
@@ -12,6 +11,5 @@ module ActiveSupport
     def login_as(user)
     @request.session[:user_id] = user.id
   end
-
   end
 end

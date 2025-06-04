@@ -30,7 +30,8 @@ class ReviewsControllerTest < ActionDispatch::IntegrationTest
         }
       }
     end
-    assert_redirected_to book_url(@book)
+
+    assert_redirected_to book_review_url(@book, Review.last)
   end
 
   test "should show review" do
@@ -50,14 +51,14 @@ class ReviewsControllerTest < ActionDispatch::IntegrationTest
         rating: 4
       }
     }
-    assert_redirected_to book_url(@book)
+
+    assert_redirected_to book_review_url(@book, @review)
   end
 
-  test "should destroy Review" do
+  test "should destroy review" do
     assert_difference("Review.count", -1) do
-    delete book_review_path(@book, @review)
-  end
-
-  assert_redirected_to book_path(@book)
+      delete book_review_path(@book, @review)
+    end
+    assert_redirected_to book_path(@book)
   end
 end

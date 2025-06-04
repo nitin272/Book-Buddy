@@ -1,4 +1,4 @@
-<!-- Bootstrap CDN -->
+
 <link
   href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
   rel="stylesheet"
@@ -7,9 +7,24 @@
 <div style="background: linear-gradient(135deg, #1e3c72, #2a5298); min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 40px;">
   <div class="card shadow p-5" style="width: 100%; max-width: 500px;">
     <h2 class="text-center mb-4 fw-bold text-dark">📝 Create Your Account</h2>
-    <% if flash[:alert] %>
-    <div class="alert alert-warning"><%= flash[:alert] %></div>
+    
+    <% flash.each do |key, message| %>
+      <div class="alert alert-<%= key == "alert" ? "warning" : key == "notice" ? "success" : "info" %> alert-dismissible fade show" role="alert">
+        <%= message %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
     <% end %>
+
+    <% if @user.errors.any? %>
+      <div class="alert alert-danger">
+        <ul class="mb-0">
+          <% @user.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
     <%= form_with model: @user, url: signup_path, local: true do |f| %>
       <div class="mb-3">
         <%= f.label :name, class: "form-label" %>
@@ -38,3 +53,6 @@
     </div>
   </div>
 </div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

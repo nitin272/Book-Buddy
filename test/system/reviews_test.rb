@@ -2,17 +2,17 @@ require "application_system_test_case"
 
 class ReviewsTest < ApplicationSystemTestCase
   setup do
-    @user = users(:one)       # The user fixture
-    @book = books(:one)       # Book fixture
-    @review = reviews(:one)   # Review fixture
+    @user = users(:one)
+    @book = books(:one)
+    @review = reviews(:one)
 
-    log_in_as(@user)          # Log in the user before tests run
+    log_in_as(@user)
   end
 
   def log_in_as(user)
     visit login_path
     fill_in "Email", with: user.email
-    fill_in "Password", with: "nitin"   # use your test password here
+    fill_in "Password", with: "nitin"
     click_on "Login"
   end
 

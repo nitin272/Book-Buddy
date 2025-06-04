@@ -10,20 +10,19 @@
       <div class="card shadow border-0 rounded-4">
         <div class="card-body p-5">
 
-          <% if notice.present? %>
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-              <%= notice %>
+   
+          <% flash.each do |key, message| %>
+            <% alert_class = case key.to_s
+              when "notice" then "success"
+              when "alert" then "danger"
+              when "warning" then "warning"
+              else "info"
+            end %>
+            <div class="alert alert-<%= alert_class %> alert-dismissible fade show" role="alert">
+              <%= message %>
               <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
           <% end %>
-
-          <% if alert.present? %>
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-              <%= alert %>
-              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-          <% end %>
-
           <h1 class="text-center mb-4 text-primary fw-bold display-4">
             👋 Welcome, <%= @user.name %>!
           </h1>

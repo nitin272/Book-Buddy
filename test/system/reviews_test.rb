@@ -2,18 +2,19 @@ require "application_system_test_case"
 
 class ReviewsTest < ApplicationSystemTestCase
   setup do
-    @user = users(:one)
-    @book = books(:one)
-    @review = reviews(:one)
+    @user = users(:one)   
+    @book = books(:one)      
+    @review = reviews(:one)   
 
-    log_in_as(@user)
+    log_in_as(@user)        
   end
 
   def log_in_as(user)
-  page.driver.post login_path, params: { email: user.email, password: "nitin" }
-  visit dashboard_path  # redirect target after login, so load that page to set session in browser
-end
-
+    visit login_path
+    fill_in "Email", with: user.email
+    fill_in "Password", with: "nitin" 
+    click_on "Login"
+  end
 
   test "visiting the index" do
     visit book_reviews_url(@book)

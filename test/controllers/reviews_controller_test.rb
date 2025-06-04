@@ -7,6 +7,7 @@ class ReviewsControllerTest < ActionDispatch::IntegrationTest
     @review = reviews(:one)
 
     post login_path, params: { email: @user.email, password: "nitin" }
+
     assert_equal @user.id, session[:user_id]
   end
 
@@ -22,13 +23,7 @@ class ReviewsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create review" do
     assert_difference("Review.count") do
-      post book_reviews_url(@book), params: {
-        review: {
-          book_id: @book.id,
-          comment: "Great!",
-          rating: 5
-        }
-      }
+      post book_reviews_url(@book), params: { review: { book_id: @book.id, comment: "Great!", rating: 5 } }
     end
 
     assert_redirected_to book_review_url(@book, Review.last)
@@ -45,20 +40,15 @@ class ReviewsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update review" do
-    patch book_review_url(@book, @review), params: {
-      review: {
-        comment: "Updated comment",
-        rating: 4
-      }
-    }
-
+    patch book_review_url(@book, @review), params: { review: { comment: "Updated comment", rating: 4 } }
     assert_redirected_to book_review_url(@book, @review)
   end
 
   test "should destroy review" do
     assert_difference("Review.count", -1) do
-      delete book_review_path(@book, @review)
+      delete book_review_url(@book, @review)
     end
-    assert_redirected_to book_path(@book)
+
+    assert_redirected_to book_reviews_url(@book)
   end
 end

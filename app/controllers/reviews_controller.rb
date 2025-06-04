@@ -1,59 +1,56 @@
-class ReviewsController < ApplicationController
-  before_action :require_login
-  before_action :set_book
-  before_action :set_review, only: [ :show, :edit, :update, :destroy ]
+class BooksController < ApplicationController
+  before_action :set_book, only: [ :show, :edit, :update, :destroy ]
+
 
   def index
-    @reviews = @book.reviews
+    @books = current_user.books
   end
 
+
   def show
-  @book = Book.find(params[:book_id])
-  @review = @book.reviews.find(params[:id])
-end
+    @review = @book.reviews.new
+  end
+
 
   def new
-    @review = @book.reviews.build
+    @book = current_user.books.new
+  end
+
+
+  def create
+    @book = current_user.books.new(book_params)
+    if @book.save
+      redirect_to dashboard_path, notice: "Book was successfully created."
+    else
+      render :new, status: :unprocessable_entity
+    end
   end
 
   def edit
   end
 
-  def create
-  @review = @book.reviews.build(review_params)
-
-
-  if @review.save
-    redirect_to book_review_path(@book, @review), notice: "Review was successfully created."
-  else
-    render :new
-  end
-end
-
 def update
-  if @review.update(review_params)
-    redirect_to book_review_path(@book, @review), notice: "Review was successfully updated."
+  if @book.update(book_params)
+    redirect_to dashboard_path(@book), notice: "Book was successfully updated."
   else
-    render :edit
+    render :edit, status: :unprocessable_entity
   end
 end
 
-def destroy
-  @review.destroy
-  redirect_to book_path(@book), notice: "Review was successfully destroyed."
+  def destroy
+  @book.destroy
+  redirect_to dashboard_path, notice: "Book was successfully deleted."
 end
+
 
   private
 
   def set_book
-    @book = Book.find(params[:book_id])
+
+    @book = current_user.books.find(params[:id])
   end
 
-  def set_review
-    @review = @book.reviews.find(params[:id])
-  end
-
-  def review_params
-    params.require(:review).permit(:rating, :comment)
+  def book_params
+    params.require(:book).permit(:title, :author, :genre, :notes)
   end
 end

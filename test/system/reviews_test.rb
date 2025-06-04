@@ -2,17 +2,17 @@ require "application_system_test_case"
 
 class ReviewsTest < ApplicationSystemTestCase
   setup do
-    @user = users(:one)   
-    @book = books(:one)      
-    @review = reviews(:one)   
+    @user = users(:one)
+    @book = books(:one)
+    @review = reviews(:one)
 
-    log_in_as(@user)        
+    log_in_as(@user)
   end
 
   def log_in_as(user)
     visit login_path
     fill_in "Email", with: user.email
-    fill_in "Password", with: "nitin" 
+    fill_in "Password", with: "nitin"
     click_on "Login"
   end
 

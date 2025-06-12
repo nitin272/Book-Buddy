@@ -1,84 +1,107 @@
-<nav class="apple-navbar" id="mainNavbar" role="navigation" aria-label="Main Navigation">
-  <div class="container-fluid nav-inner">
+<nav class="bb-navbar" role="navigation" aria-label="Main Navigation">
+  <div class="bb-navbar-inner container">
     <%= stylesheet_link_tag 'navbar', media: 'all', 'data-turbolinks-track': 'reload' %>
-
-    <div class="apple-brand">
-      <%= link_to '/', class: 'brand-link', aria: { label: 'BookBuddy Home' } do %>
-        <%= image_tag 'bookbuddy_logo.svg', alt: 'BookBuddy Logo', class: 'apple-logo' %>
-      <% end %>
-    </div>
-
-    <ul class="nav-links center-links" role="menubar">
-      <li role="none"><%= link_to '/', class: 'nav-link', role: 'menuitem' do %>
+    <%= link_to root_path, class: 'bb-brand-link', aria: { label: 'BookBuddy Home' } do %>
+      <%= image_tag 'bookbuddy_logo.svg', alt: 'BookBuddy Logo', class: 'bb-logo' %>
+    <% end %>
+    <ul class="bb-nav-links" role="menubar">
+      <li role="none"><%= link_to root_path, class: 'bb-nav-link', role: 'menuitem' do %>
         <i class="fas fa-home"></i><span>Home</span>
       <% end %></li>
-      <li role="none"><%= link_to '/dashboard', class: 'nav-link', role: 'menuitem' do %>
+      <li role="none"><%= link_to dashboard_path, class: 'bb-nav-link', role: 'menuitem' do %>
         <i class="fas fa-chart-line"></i><span>Dashboard</span>
       <% end %></li>
-      <li role="none"><%= link_to '/about', class: 'nav-link', role: 'menuitem' do %>
+      <li role="none"><%= link_to about_path, class: 'bb-nav-link', role: 'menuitem' do %>
         <i class="fas fa-info-circle"></i><span>About</span>
       <% end %></li>
     </ul>
 
-    <ul class="nav-links right-links" role="menubar">
-   <% if logged_in? %>
-  <li class="user-info" role="none">
-    <span class="user-name">Welcome, <%= current_user.name || current_user.email %></span>
-  </li>
-  <li role="none"><%= link_to logout_path, method: :delete, class: 'nav-link', role: 'menuitem' do %>
-    <i class="fas fa-sign-out-alt"></i><span>Logout</span>
-  <% end %></li>
-<% else %>
-  <li role="none"><%= link_to login_path, class: 'nav-link', role: 'menuitem' do %>
-    <i class="fas fa-sign-in-alt"></i><span>Login</span>
-  <% end %></li>
-  <li role="none"><%= link_to signup_path, class: 'nav-link', role: 'menuitem' do %>
-    <i class="fas fa-user-plus"></i><span>Sign Up</span>
-  <% end %></li>
-<% end %>
-
+    <!-- Right User/CTA -->
+    <ul class="bb-nav-actions" role="menubar">
+      <% if logged_in? %>
+        <li role="none">
+          <%= link_to user_path(current_user), class: 'bb-nav-link', role: 'menuitem', aria: { label: "Profile Page" } do %>
+            <i class="fas fa-user-circle"></i>
+            <span>Profile</span>
+          <% end %>
+        </li>
+        <li class="bb-user-greet" role="none">
+          <span>
+            Welcome, <strong><%= current_user.name || current_user.email %></strong>
+          </span>
+        </li>
+        <li role="none">
+          <%= link_to logout_path, method: :delete, class: 'bb-nav-link', role: 'menuitem' do %>
+            <i class="fas fa-sign-out-alt"></i><span>Logout</span>
+          <% end %>
+        </li>
+      <% else %>
+        <li role="none"><%= link_to login_path, class: 'bb-nav-link', role: 'menuitem' do %>
+          <i class="fas fa-sign-in-alt"></i><span>Login</span>
+        <% end %></li>
+        <li role="none"><%= link_to signup_path, class: 'bb-cta-link', role: 'menuitem' do %>
+          <i class="fas fa-user-plus"></i><span>Sign Up</span>
+        <% end %></li>
+      <% end %>
     </ul>
-    <button class="navbar-toggle" id="navbarToggle" aria-label="Toggle navigation">
+
+    <!-- Hamburger for mobile -->
+    <button class="bb-navbar-toggle" id="bbNavbarToggle" aria-label="Toggle navigation">
       <span class="bar"></span>
       <span class="bar"></span>
       <span class="bar"></span>
     </button>
   </div>
-  <div class="mobile-menu" id="mobileMenu">
+
+  <div class="bb-mobile-menu" id="bbMobileMenu">
     <ul>
-      <li><%= link_to '/', class: 'nav-link' do %><i class="fas fa-home"></i> Home<% end %></li>
-      <li><%= link_to '/dashboard', class: 'nav-link' do %><i class="fas fa-chart-line"></i> Dashboard<% end %></li>
-      <li><%= link_to '/about', class: 'nav-link' do %><i class="fas fa-info-circle"></i> About<% end %></li>
+      <li><%= link_to root_path, class: 'bb-nav-link' do %><i class="fas fa-home"></i> Home<% end %></li>
+      <li><%= link_to dashboard_path, class: 'bb-nav-link' do %><i class="fas fa-chart-line"></i> Dashboard<% end %></li>
+      <li><%= link_to about_path, class: 'bb-nav-link' do %><i class="fas fa-info-circle"></i> About<% end %></li>
+
       <% if logged_in? %>
-        <li><%= link_to logout_path, method: :delete, class: 'nav-link' do %><i class="fas fa-sign-out-alt"></i> Logout<% end %></li>
+        <li>
+          <%= link_to user_path(current_user), class: 'bb-nav-link' do %>
+            <i class="fas fa-user-circle"></i> Profile
+          <% end %>
+        </li>
+        <li class="bb-user-greet-mobile">
+          <span>
+            Welcome, <strong><%= current_user.name || current_user.email %></strong>
+          </span>
+        </li>
+        <li><%= link_to logout_path, method: :delete, class: 'bb-nav-link' do %><i class="fas fa-sign-out-alt"></i> Logout<% end %></li>
       <% else %>
-        <li><%= link_to login_path, class: 'nav-link' do %><i class="fas fa-sign-in-alt"></i> Login<% end %></li>
-        <li><%= link_to signup_path, class: 'nav-link' do %><i class="fas fa-user-plus"></i> Sign Up<% end %></li>
+        <li><%= link_to login_path, class: 'bb-nav-link' do %><i class="fas fa-sign-in-alt"></i> Login<% end %></li>
+        <li><%= link_to signup_path, class: 'bb-cta-link' do %><i class="fas fa-user-plus"></i> Sign Up<% end %></li>
       <% end %>
     </ul>
   </div>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const navbar = document.getElementById('mainNavbar');
-      window.addEventListener('scroll', function() {
-        if (window.scrollY > 10) {
-          navbar.classList.add('scrolled');
-        } else {
-          navbar.classList.remove('scrolled');
-        }
-      });
-      const toggle = document.getElementById('navbarToggle');
-      const mobileMenu = document.getElementById('mobileMenu');
-      toggle.addEventListener('click', function() {
-        mobileMenu.classList.toggle('open');
-        toggle.classList.toggle('open');
-      });
-      mobileMenu.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', () => {
-          mobileMenu.classList.remove('open');
-          toggle.classList.remove('open');
-        });
-      });
-    });
-  </script>
 </nav>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const navbar = document.querySelector('.bb-navbar');
+  window.addEventListener('scroll', function() {
+    if (window.scrollY > 10) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+  });
+  const toggle = document.getElementById('bbNavbarToggle');
+  const mobileMenu = document.getElementById('bbMobileMenu');
+  toggle.addEventListener('click', function() {
+    mobileMenu.classList.toggle('open');
+    toggle.classList.toggle('open');
+  });
+  mobileMenu.querySelectorAll('.bb-nav-link, .bb-cta-link').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+      toggle.classList.remove('open');
+    });
+  });
+});
+</script>

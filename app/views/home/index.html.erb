@@ -4,194 +4,111 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>BookBuddy – Your Smart Reading Companion</title>
-
-  <%= stylesheet_link_tag 'index', media: 'all', 'data-turbo-track': 'reload' %>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
-
-  <style>
-    :root {
-      --primary: #0071e3;
-      --text: #1b1b1f;
-      --muted: #666;
-      --bg: #f9f9f9;
-      --radius: 12px;
-    }
-
-    body {
-      margin: 0;
-      font-family: 'Inter', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-    }
-
-    .container {
-      max-width: 1100px;
-      margin: auto;
-      padding: 2rem;
-    }
-
-    header.landing-hero {
-      background: linear-gradient(135deg, #0071e3, #004d99);
-      color: #fff;
-      text-align: center;
-      padding: 80px 20px;
-    }
-
-    .hero-logo {
-      height: 70px;
-      margin-bottom: 20px;
-    }
-
-    .hero-title {
-      font-size: 3rem;
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
-
-    .hero-slogan {
-      font-size: 1.2rem;
-      font-weight: 500;
-      opacity: 0.9;
-      margin-bottom: 30px;
-    }
-
-    .cta-button {
-      background: #fff;
-      color: #0071e3;
-      padding: 14px 30px;
-      border-radius: var(--radius);
-      font-weight: 600;
-      text-decoration: none;
-      transition: all 0.3s ease;
-    }
-
-    .cta-button:hover {
-      background: #e6f0ff;
-    }
-
-    section {
-      padding: 60px 20px;
-      text-align: center;
-    }
-
-    section h2 {
-      font-size: 2.2rem;
-      margin-bottom: 40px;
-    }
-
-    .feature-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 30px;
-    }
-
-    .feature {
-      background: #fff;
-      border-radius: var(--radius);
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-      padding: 30px 20px;
-      transition: transform 0.3s;
-    }
-
-    .feature:hover {
-      transform: translateY(-6px);
-    }
-
-    .feature i {
-      font-size: 2.5rem;
-      color: var(--primary);
-      margin-bottom: 16px;
-    }
-
-    .feature h3 {
-      font-size: 1.3rem;
-      margin-bottom: 10px;
-    }
-
-    .feature p {
-      color: var(--muted);
-      font-size: 0.95rem;
-    }
-
-    .section-cta {
-      margin-top: 40px;
-    }
-
-    footer.landing-footer {
-      background: #f0f0f0;
-      text-align: center;
-      padding: 20px;
-      color: var(--muted);
-      font-size: 0.9rem;
-    }
-  </style>
+  <%= stylesheet_link_tag 'index', media: 'all', 'data-turbolinks-track': 'reload' %>
 </head>
 <body>
-
   <header class="landing-hero">
-    <div class="container" data-aos="zoom-in">
-      <%= image_tag 'bookbuddy_logo.svg', alt: 'BookBuddy Logo', class: 'hero-logo' %>
+    <div class="hero-content">
+        <%= image_tag 'bookbuddy_logo.svg', alt: 'BookBuddy Logo', class: 'apple-logo' %>
       <h1 class="hero-title">BookBuddy</h1>
-      <p class="hero-slogan">Read More. Discover More. Be Inspired.</p>
-      <%= link_to 'Join Now – It’s Free', signup_path, class: 'cta-button' %>
+      <div class="hero-tagline">
+        <span><i class="fas fa-quote-left"></i> Read More. Discover More. Be Inspired. <i class="fas fa-quote-right"></i></span>
+      </div>
+      <a href="/signup" class="cta-button">Join Now – It’s Free</a>
+      <div class="hero-values">
+        <div><i class="fas fa-user-friends"></i> Join a community of book lovers</div>
+        <div><i class="fas fa-magic"></i> Smart, personalized recommendations</div>
+        <div><i class="fas fa-star"></i> Track, review, and share your reads</div>
+      </div>
+      <div class="hero-social-proof">
+        <img src="https://randomuser.me/api/portraits/thumb/men/75.jpg" alt="User" />
+        <img src="https://randomuser.me/api/portraits/thumb/women/65.jpg" alt="User" />
+        <img src="https://randomuser.me/api/portraits/thumb/men/34.jpg" alt="User" />
+        <span>Trusted by thousands of readers</span>
+      </div>
+      <div class="hero-scroll-cue">
+        <span>See what you can do</span>
+        <i class="fas fa-angle-down"></i>
+      </div>
+    </div>
+    <div class="hero-image">
     </div>
   </header>
-
-
-  <section data-aos="fade-up">
+  <section class="features-section">
     <div class="container">
-      <h2>What You Can Do</h2>
+      <div class="section-title">What You Can Do</div>
       <div class="feature-grid">
-        <div class="feature" data-aos="fade-up" data-aos-delay="100">
-          <i class="fas fa-book-open"></i>
+        <div class="feature">
+          <img src="https://cdn-icons-png.flaticon.com/512/3062/3062634.png" alt="Track Reading" />
           <h3>Track Reading</h3>
           <p>Log your progress, mark chapters, and revisit old reads anytime.</p>
         </div>
-        <div class="feature" data-aos="fade-up" data-aos-delay="200">
-          <i class="fas fa-heart"></i>
+        <div class="feature">
+          <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Personalized Picks" />
           <h3>Get Personalized Picks</h3>
           <p>Smart recommendations that match your interests and genres.</p>
         </div>
-        <div class="feature" data-aos="fade-up" data-aos-delay="300">
-          <i class="fas fa-pen"></i>
+        <div class="feature">
+          <img src="https://cdn-icons-png.flaticon.com/512/1828/1828919.png" alt="Write Reviews" />
           <h3>Write Reviews</h3>
           <p>Express your thoughts on books and help others discover them.</p>
         </div>
+        <div class="feature">
+          <img src="https://cdn-icons-png.flaticon.com/512/3062/3062633.png" alt="Join Book Clubs" />
+          <h3>Join Book Clubs</h3>
+          <p>Connect with readers, join discussions, and make new friends.</p>
+        </div>
+        <div class="feature">
+          <img src="https://cdn-icons-png.flaticon.com/512/2278/2278992.png" alt="Reading Challenges" />
+          <h3>Reading Challenges</h3>
+          <p>Participate in monthly challenges and earn badges for your achievements.</p>
+        </div>
+        <div class="feature">
+          <img src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png" alt="Share Recommendations" />
+          <h3>Share Recommendations</h3>
+          <p>Suggest your favorite books to friends and followers.</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <section data-aos="fade-up" style="background: #fff;">
+  <section class="bookshelf-section">
     <div class="container">
-      <h2>My Bookshelf</h2>
+      <div class="section-title">My Bookshelf</div>
       <div class="feature-grid">
-        <div class="feature" data-aos="fade-up" data-aos-delay="100">
-          <i class="fas fa-layer-group"></i>
+        <div class="feature">
+          <img src="https://cdn-icons-png.flaticon.com/512/3062/3062635.png" alt="My Books" />
           <h3>My Books</h3>
           <p>Curate a collection of your favorite books across genres.</p>
         </div>
-        <div class="feature" data-aos="fade-up" data-aos-delay="200">
-          <i class="fas fa-calendar-check"></i>
+        <div class="feature">
+          <img src="https://cdn-icons-png.flaticon.com/512/3135/3135768.png" alt="Set Reading Goals" />
           <h3>Set Reading Goals</h3>
           <p>Challenge yourself with yearly goals and track your pace.</p>
         </div>
-        <div class="feature" data-aos="fade-up" data-aos-delay="300">
-          <i class="fas fa-bolt"></i>
+        <div class="feature">
+          <img src="https://cdn-icons-png.flaticon.com/512/2278/2278991.png" alt="Quick Notes" />
           <h3>Quick Notes</h3>
           <p>Jot down memorable quotes or key points as you read.</p>
+        </div>
+        <div class="feature">
+          <img src="https://cdn-icons-png.flaticon.com/512/3135/3135766.png" alt="Wishlist" />
+          <h3>Wishlist</h3>
+          <p>Create and manage your reading wishlist for future inspiration.</p>
+        </div>
+        <div class="feature">
+          <img src="https://cdn-icons-png.flaticon.com/512/2278/2278990.png" alt="Reading Stats" />
+          <h3>Reading Stats</h3>
+          <p>Visualize your reading journey with beautiful charts and insights.</p>
+        </div>
+        <div class="feature">
+          <img src="https://cdn-icons-png.flaticon.com/512/3135/3135743.png" alt="Export Library" />
+          <h3>Export Library</h3>
+          <p>Export your bookshelf or notes for backup or sharing.</p>
         </div>
       </div>
     </div>
   </section>
-
-  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-  <script>
-    AOS.init({
-      duration: 900,
-      once: true,
-      offset: 80
-    });
-  </script>
 </body>
 </html>

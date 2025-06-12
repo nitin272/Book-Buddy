@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   resources :books do
     resources :reviews
   end
+  get "/profile", to: "users#profile", as: :profile
+
 
 
   get "dashboard/index"

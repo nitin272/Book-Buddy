@@ -1,76 +1,112 @@
-<div class="container mt-5">
-  <h1><%= @book.title %></h1>
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
 
-  <% flash.each do |key, message| %>
-    <div class="alert alert-<%= key == "alert" ? "danger" : "success" %> alert-dismissible fade show" role="alert">
-      <%= message %>
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      <!-- Book Details Card -->
+      <div class="card shadow border-0 rounded-4 mb-5">
+        <div class="card-body p-5">
+
+          <h1 class="mb-3 text-primary fw-bold">
+            <i class="bi bi-book-half me-2"></i>
+            <%= @book.title %>
+          </h1>
+
+          <% flash.each do |key, message| %>
+            <% alert_class = key == "alert" ? "danger" : "success" %>
+            <div class="alert alert-<%= alert_class %> alert-dismissible fade show d-flex align-items-center gap-2" role="alert">
+              <% icon = alert_class == "danger" ? "bi bi-exclamation-triangle-fill text-danger" : "bi bi-check-circle-fill text-success" %>
+              <i class="<%= icon %> fs-5"></i>
+              <span><%= message %></span>
+              <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          <% end %>
+
+          <ul class="list-group list-group-flush mb-4">
+            <li class="list-group-item px-0">
+              <strong>Author:</strong> <%= @book.author %>
+            </li>
+            <li class="list-group-item px-0">
+              <strong>Genre:</strong> <%= @book.genre %>
+            </li>
+            <li class="list-group-item px-0">
+              <strong>Notes:</strong> <%= @book.notes %>
+            </li>
+          </ul>
+
+          <div class="d-flex gap-2 mb-3">
+            <%= link_to "Edit", edit_book_path(@book), class: "btn btn-warning rounded-pill fw-semibold" %>
+            <%= link_to "Back", books_path, class: "btn btn-secondary rounded-pill fw-semibold" %>
+            <%= button_to "Delete", book_path(@book), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger rounded-pill fw-semibold" %>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reviews Section -->
+      <div class="card shadow border-0 rounded-4 mb-5">
+        <div class="card-body p-5">
+
+          <h3 class="mb-4 text-success fw-bold">
+            <i class="bi bi-chat-left-text me-2"></i>
+            Reviews
+          </h3>
+
+          <% if @book.reviews.any? %>
+            <ul class="list-group mb-4">
+              <% @book.reviews.each do |review| %>
+                <% next if review.id.nil? %>
+                <li class="list-group-item d-flex justify-content-between align-items-center rounded-3 mb-2 shadow-sm">
+                  <div>
+                    <span class="badge bg-primary me-2"><i class="bi bi-star-fill"></i> <%= review.rating %></span>
+                    <strong>Comment:</strong> <%= review.comment %>
+                    <br>
+                    <small class="text-muted"><i class="bi bi-clock me-1"></i><%= review.created_at.strftime("%b %d, %Y") if review.created_at.present? %></small>
+                  </div>
+                  <div>
+                    <%= link_to "Edit", edit_book_review_path(@book, review), class: "btn btn-sm btn-warning rounded-pill fw-semibold" %>
+                  </div>
+                </li>
+              <% end %>
+            </ul>
+          <% else %>
+            <p class="text-muted fst-italic">No reviews yet.</p>
+          <% end %>
+
+          <h4 class="mt-4 mb-3 text-primary fw-semibold">
+            <i class="bi bi-plus-circle me-2"></i>
+            Add a Review
+          </h4>
+
+          <% if @review && @review.errors.any? %>
+            <div class="alert alert-danger">
+              <ul class="mb-0">
+                <% @review.errors.full_messages.each do |msg| %>
+                  <li><%= msg %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+          <%= form_with(model: [@book, @review], local: true) do |form| %>
+            <div class="mb-3">
+              <%= form.label :rating, class: "form-label fw-semibold" %>
+              <%= form.number_field :rating, in: 1..5, step: 1, class: "form-control rounded-pill px-4 py-2", placeholder: "Rating (1-5)" %>
+            </div>
+
+            <div class="mb-3">
+              <%= form.label :comment, class: "form-label fw-semibold" %>
+              <%= form.text_area :comment, class: "form-control rounded-3 px-4 py-2", placeholder: "Your review..." %>
+            </div>
+
+            <div class="d-grid">
+              <%= form.submit "Submit", class: "btn btn-primary btn-lg rounded-pill fw-semibold shadow-sm" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
     </div>
-  <% end %>
-
-  <p><strong>Author:</strong> <%= @book.author %></p>
-  <p><strong>Genre:</strong> <%= @book.genre %></p>
-  <p><strong>Notes:</strong> <%= @book.notes %></p>
-
-  <div class="btn-group mb-4" role="group">
-    <%= link_to "Edit", edit_book_path(@book), class: "btn btn-warning" %>
-    <%= link_to "Back", books_path, class: "btn btn-secondary" %>
-    <%= button_to "Delete", book_path(@book), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
   </div>
-
-  <hr>
-
-  <h3>Reviews</h3>
-
-  <% if @book.reviews.any? %>
-    <ul class="list-group mb-4">
-      <% @book.reviews.each do |review| %>
-        <% next if review.id.nil? %> 
-
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-          <div>
-            <strong>Rating:</strong> <%= review.rating %> | 
-            <strong>Comment:</strong> <%= review.comment %> |
-            <small class="text-muted"><%= review.created_at.strftime("%b %d, %Y") if review.created_at.present? %></small>
-          </div>
-
-          <div>
-            <%= link_to "Edit", edit_book_review_path(@book, review), class: "btn btn-sm btn-warning me-2" %>
-           
-          </div>
-        </li>
-      <% end %>
-    </ul>
-  <% else %>
-    <p>No reviews yet.</p>
-  <% end %>
-
-  <h4>Add a Review</h4>
-
-  <% if @review && @review.errors.any? %>
-    <div class="alert alert-danger">
-      <ul>
-        <% @review.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <%= form_with(model: [@book, @review], local: true) do |form| %>
-    <div class="mb-3">
-      <%= form.label :rating %>
-      <%= form.number_field :rating, in: 1..5, step: 1, class: "form-control" %>
-    </div>
-
-    <div class="mb-3">
-      <%= form.label :comment %>
-      <%= form.text_area :comment, class: "form-control" %>
-    </div>
-
-    <%= form.submit "Submit", class: "btn btn-primary" %>
-  <% end %>
 </div>
 
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+

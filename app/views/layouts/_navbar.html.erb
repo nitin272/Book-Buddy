@@ -1,51 +1,107 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3 shadow">
-  <div class="container">
-    <!-- Brand -->
-    <a class="navbar-brand d-flex align-items-center" href="#">
-      <i class="fas fa-book-reader me-2 fs-4"></i>
-      <span class="fs-4 fw-bold">BookBuddy</span>
-    </a>
+<nav class="bb-navbar" role="navigation" aria-label="Main Navigation">
+  <div class="bb-navbar-inner container">
+    <%= stylesheet_link_tag 'navbar', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= link_to root_path, class: 'bb-brand-link', aria: { label: 'BookBuddy Home' } do %>
+      <%= image_tag 'bookbuddy_logo.svg', alt: 'BookBuddy Logo', class: 'bb-logo' %>
+    <% end %>
+    <ul class="bb-nav-links" role="menubar">
+      <li role="none"><%= link_to root_path, class: 'bb-nav-link', role: 'menuitem' do %>
+        <i class="fas fa-home"></i><span>Home</span>
+      <% end %></li>
+      <li role="none"><%= link_to dashboard_path, class: 'bb-nav-link', role: 'menuitem' do %>
+        <i class="fas fa-chart-line"></i><span>Dashboard</span>
+      <% end %></li>
+      <li role="none"><%= link_to about_path, class: 'bb-nav-link', role: 'menuitem' do %>
+        <i class="fas fa-info-circle"></i><span>About</span>
+      <% end %></li>
+    </ul>
 
-    <!-- Toggler for mobile -->
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <!-- Navbar content -->
-    <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
-
-      <!-- Centered nav links -->
-      <ul class="navbar-nav mx-auto text-center">
-        <li class="nav-item">
-          <a class="nav-link px-3" href="/"><i class="fas fa-home me-1"></i> Home</a>
+    <!-- Right User/CTA -->
+    <ul class="bb-nav-actions" role="menubar">
+      <% if logged_in? %>
+        <li role="none">
+          <%= link_to user_path(current_user), class: 'bb-nav-link', role: 'menuitem', aria: { label: "Profile Page" } do %>
+            <i class="fas fa-user-circle"></i>
+            <span>Profile</span>
+          <% end %>
         </li>
-        <li class="nav-item">
-          <a class="nav-link px-3" href="/dashboard"><i class="fas fa-tachometer-alt me-1"></i> Dashboard</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link px-3" href="/about"><i class="fas fa-info-circle me-1"></i> About</a>
-        </li>
-      </ul>
-
-      <!-- Right-side user/auth buttons -->
-      <div class="d-flex align-items-center gap-2">
-        <% if logged_in? %>
-          <span class="navbar-text text-light me-2">
-            <i class="fas fa-user-circle me-1"></i> Welcome, <%= current_user.name || 'User' %>
+        <li class="bb-user-greet" role="none">
+          <span>
+            Welcome, <strong><%= current_user.name || current_user.email %></strong>
           </span>
-          <%= link_to logout_path, method: :delete, class: 'btn btn-outline-light btn-sm' do %>
-            <i class="fas fa-sign-out-alt me-1"></i> Logout
+        </li>
+        <li role="none">
+          <%= link_to logout_path, method: :delete, class: 'bb-nav-link', role: 'menuitem' do %>
+            <i class="fas fa-sign-out-alt"></i><span>Logout</span>
           <% end %>
-        <% else %>
-          <%= link_to login_path, class: 'btn btn-outline-light btn-sm me-2' do %>
-            <i class="fas fa-sign-in-alt me-1"></i> Login
+        </li>
+      <% else %>
+        <li role="none"><%= link_to login_path, class: 'bb-nav-link', role: 'menuitem' do %>
+          <i class="fas fa-sign-in-alt"></i><span>Login</span>
+        <% end %></li>
+        <li role="none"><%= link_to signup_path, class: 'bb-cta-link', role: 'menuitem' do %>
+          <i class="fas fa-user-plus"></i><span>Sign Up</span>
+        <% end %></li>
+      <% end %>
+    </ul>
+
+    <!-- Hamburger for mobile -->
+    <button class="bb-navbar-toggle" id="bbNavbarToggle" aria-label="Toggle navigation">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+  </div>
+
+  <div class="bb-mobile-menu" id="bbMobileMenu">
+    <ul>
+      <li><%= link_to root_path, class: 'bb-nav-link' do %><i class="fas fa-home"></i> Home<% end %></li>
+      <li><%= link_to dashboard_path, class: 'bb-nav-link' do %><i class="fas fa-chart-line"></i> Dashboard<% end %></li>
+      <li><%= link_to about_path, class: 'bb-nav-link' do %><i class="fas fa-info-circle"></i> About<% end %></li>
+
+      <% if logged_in? %>
+        <li>
+          <%= link_to user_path(current_user), class: 'bb-nav-link' do %>
+            <i class="fas fa-user-circle"></i> Profile
           <% end %>
-          <%= link_to signup_path, class: 'btn btn-light btn-sm' do %>
-            <i class="fas fa-user-plus me-1"></i> Sign Up
-          <% end %>
-        <% end %>
-      </div>
-    </div>
+        </li>
+        <li class="bb-user-greet-mobile">
+          <span>
+            Welcome, <strong><%= current_user.name || current_user.email %></strong>
+          </span>
+        </li>
+        <li><%= link_to logout_path, method: :delete, class: 'bb-nav-link' do %><i class="fas fa-sign-out-alt"></i> Logout<% end %></li>
+      <% else %>
+        <li><%= link_to login_path, class: 'bb-nav-link' do %><i class="fas fa-sign-in-alt"></i> Login<% end %></li>
+        <li><%= link_to signup_path, class: 'bb-cta-link' do %><i class="fas fa-user-plus"></i> Sign Up<% end %></li>
+      <% end %>
+    </ul>
   </div>
 </nav>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const navbar = document.querySelector('.bb-navbar');
+  window.addEventListener('scroll', function() {
+    if (window.scrollY > 10) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+  });
+  const toggle = document.getElementById('bbNavbarToggle');
+  const mobileMenu = document.getElementById('bbMobileMenu');
+  toggle.addEventListener('click', function() {
+    mobileMenu.classList.toggle('open');
+    toggle.classList.toggle('open');
+  });
+  mobileMenu.querySelectorAll('.bb-nav-link, .bb-cta-link').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+      toggle.classList.remove('open');
+    });
+  });
+});
+</script>

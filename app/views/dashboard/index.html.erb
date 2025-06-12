@@ -1,67 +1,134 @@
 <%= content_for :head do %>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+  <style>
+    .dashboard-bg {
+      background: linear-gradient(135deg, #e0e7ff 0%, #f8fafc 100%);
+      min-height: 100vh;
+    }
+    .profile-avatar {
+      width: 56px;
+      height: 56px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid #4f8cff;
+      background: #fff;
+    }
+    .book-cover {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      background: #f1f3f6;
+      border-radius: 1rem 1rem 0 0;
+    }
+    .empty-illustration {
+      width: 120px;
+      margin-bottom: 1.5rem;
+      opacity: 0.7;
+    }
+    .navbar-brand {
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+  </style>
 <% end %>
 
-<div class="container py-5 mt-12v">
-  <div class="row justify-content-center">
-    <div class="col-md-8 col-lg-7">
-      <div class="card shadow border-0 rounded-4">
-        <div class="card-body p-5">
+<div class="dashboard-bg py-5">
+  
 
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-9 col-lg-8">
+        <div class="card shadow border-0 rounded-4">
+          <div class="card-body p-5">
+
+            <% flash.each do |key, message| %>
+              <% alert_class = case key.to_s
+                when "notice" then "success"
+                when "alert" then "danger"
+                when "warning" then "warning"
+                else "info"
+              end %>
+              <div class="alert alert-<%= alert_class %> alert-dismissible fade show d-flex align-items-center gap-2" role="alert">
    
-          <% flash.each do |key, message| %>
-            <% alert_class = case key.to_s
-              when "notice" then "success"
-              when "alert" then "danger"
-              when "warning" then "warning"
-              else "info"
-            end %>
-            <div class="alert alert-<%= alert_class %> alert-dismissible fade show" role="alert">
-              <%= message %>
-              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <% icon = case alert_class
+                  when "success" then "bi bi-check-circle-fill text-success"
+                  when "danger" then "bi bi-exclamation-triangle-fill text-danger"
+                  when "warning" then "bi bi-exclamation-circle-fill text-warning"
+                  else "bi bi-info-circle-fill text-info"
+                end %>
+                <i class="<%= icon %> fs-4"></i>
+                <span><%= message %></span>
+                <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            <% end %>
+
+            <!-- Welcome Section -->
+            <div class="text-center mb-5">
+             
+              <h1 class="mb-2 text-primary fw-bold display-5">
+                👋 Welcome, <%= @user.name %>!
+              </h1>
+              <p class="text-secondary fs-5 mb-0">
+                You have successfully logged in to your dashboard.
+              </p>
             </div>
-          <% end %>
-          <h1 class="text-center mb-4 text-primary fw-bold display-4">
-            👋 Welcome, <%= @user.name %>!
-          </h1>
 
-          <p class="text-center text-secondary fs-5 mb-5">
-            You have successfully logged in to your dashboard.
-          </p>
 
-          <ul class="list-group mb-5 shadow-sm rounded-3">
-            <li class="list-group-item d-flex justify-content-between align-items-center px-4 py-3">
-              <span class="fw-semibold text-muted">Email</span>
-              <span class="text-dark"><i class="bi bi-envelope-fill me-2"></i><%= @user.email %></span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center px-4 py-3">
-              <span class="fw-semibold text-muted">Name</span>
-              <span class="text-dark"><i class="bi bi-person-fill me-2"></i><%= @user.name %></span>
-            </li>
-          </ul>
-
-          <h2 class="text-center mb-4 mt-5 fw-semibold">📚 Your Books</h2>
-
-          <% if @books.any? %>
-            <div class="list-group mb-5">
-              <% @books.each do |book| %>
-                <a href="<%= book_path(book) %>" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center rounded-3 mb-3 shadow-sm">
-                  <div>
-                    <h5 class="mb-1"><%= book.title %></h5>
-                    <small class="text-muted fst-italic">by <%= book.author %></small>
+            <div class="row justify-content-center mb-4">
+              <div class="col-md-8">
+                <div class="card border-0 shadow-sm rounded-3 mb-4">
+                  <div class="card-body d-flex flex-column flex-md-row gap-3 align-items-center justify-content-between px-4 py-3">
+                    <div>
+                      <span class="fw-semibold text-muted">Email</span>
+                      <div class="text-dark"><i class="bi bi-envelope-fill me-2"></i><%= @user.email %></div>
+                    </div>
+                    <div>
+                      <span class="fw-semibold text-muted">Name</span>
+                      <div class="text-dark"><i class="bi bi-person-fill me-2"></i><%= @user.name %></div>
+                    </div>
                   </div>
-                </a>
-              <% end %>
+                </div>
+              </div>
             </div>
-          <% else %>
-            <p class="text-center text-muted fs-5 fst-italic">You have not added any books yet.</p>
-          <% end %>
 
-          <div class="d-grid gap-3">
-            <%= link_to "➕ Add New Book", new_book_path, class: "btn btn-primary btn-lg rounded-pill fw-semibold shadow-sm" %>
-            <%= link_to "🚪 Log Out", logout_path, method: :delete, class: "btn btn-outline-danger btn-lg rounded-pill fw-semibold shadow-sm" %>
+
+            <h2 class="text-center mb-4 mt-5 fw-semibold">📚 Your Books</h2>
+
+            <% if @books.any? %>
+              <div class="row row-cols-1 row-cols-md-2 g-4 mb-5">
+                <% @books.each do |book| %>
+                  <div class="col">
+                    <div class="card h-100 shadow-sm border-0 rounded-4">
+                   
+                        <div>
+                          <h5 class="card-title mb-2 text-primary fw-bold"><%= book.title %></h5>
+                          <h6 class="card-subtitle mb-3 text-muted fst-italic">by <%= book.author %></h6>
+                          <% if book.genre.present? %>
+                            <span class="badge bg-info text-dark mb-2"><%= book.genre %></span>
+                          <% end %>
+                        </div>
+                        <div class="mt-auto d-flex gap-2">
+                          <%= link_to "View", book_path(book), class: "btn btn-outline-primary btn-sm rounded-pill fw-semibold", title: "View Book" %>
+                          <%= link_to "Edit", edit_book_path(book), class: "btn btn-outline-warning btn-sm rounded-pill fw-semibold", title: "Edit Book" %>
+                          <%= link_to "Delete", book_path(book), method: :delete, data: { confirm: "Are you sure you want to delete this book?" }, class: "btn btn-outline-danger btn-sm rounded-pill fw-semibold", title: "Delete Book" %>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+            <% else %>
+              <div class="text-center my-5">
+             
+                <p class="text-muted fs-5 fst-italic mb-3">You have not added any books yet.</p>
+                <%= link_to "➕ Add Your First Book", new_book_path, class: "btn btn-primary btn-lg rounded-pill fw-semibold shadow-sm" %>
+              </div>
+            <% end %>
+
+       
+            <div class="d-grid gap-3 mt-4">
+              <%= link_to "➕ Add New Book", new_book_path, class: "btn btn-primary btn-lg rounded-pill fw-semibold shadow-sm" %>
+            </div>
+
           </div>
         </div>
       </div>

@@ -10,13 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_03_042524) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_12_044938) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_catalog.plpgsql"
+
   create_table "books", force: :cascade do |t|
     t.string "title"
     t.string "author"
     t.string "genre"
     t.text "notes"
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_books_on_user_id"
@@ -25,11 +28,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_03_042524) do
   create_table "reviews", force: :cascade do |t|
     t.integer "rating"
     t.text "comment"
-    t.integer "book_id", null: false
+    t.bigint "book_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["book_id"], name: "index_reviews_on_book_id"
-    
   end
 
   create_table "users", force: :cascade do |t|

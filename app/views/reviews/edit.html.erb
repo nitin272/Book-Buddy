@@ -1,13 +1,29 @@
-<% content_for :title, "Editing review" %>
+<% content_for :title, "Editing Review" %>
 
-<h1>Editing review</h1>
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
 
-<%= render "form", review: @review %>
+      <div class="card shadow border-0 rounded-4 mb-4">
+        <div class="card-body p-5">
 
-<br>
+          <h1 class="mb-4 text-primary fw-bold text-center">
+            <i class="bi bi-pencil-square me-2"></i>
+            Editing Review
+          </h1>
 
-<div>
-<%= link_to "Show this review", book_review_path(@book, @review) %> |
-<%= link_to "Back", book_reviews_path(@book), class: "btn btn-secondary" %>
+          <%= render "form", review: @review %>
 
+          <div class="d-flex justify-content-between mt-4">
+            <%= link_to "Show this review", book_review_path(@book, @review), class: "btn btn-outline-primary rounded-pill fw-semibold" %>
+            <%= link_to "Back", book_reviews_path(@book), class: "btn btn-secondary rounded-pill fw-semibold" %>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
 </div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">

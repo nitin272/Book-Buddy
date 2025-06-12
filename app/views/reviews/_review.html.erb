@@ -1,17 +1,15 @@
-<div id="<%= dom_id review %>">
-  <p>
-    <strong>Rating:</strong>
-    <%= review.rating %>
-  </p>
-
-  <p>
-    <strong>Comment:</strong>
-    <%= review.comment %>
-  </p>
-
-  <p>
-    <strong>Book:</strong>
-    <%= review.book_id %>
-  </p>
-
+<div id="<%= dom_id(review) %>" class="card shadow-sm border-0 rounded-4 mb-3">
+  <div class="card-body">
+    <h5 class="card-title mb-2">
+      <span class="badge bg-primary"><i class="bi bi-star-fill"></i> <%= review.rating %></span>
+    </h5>
+    <p class="card-text mb-2">
+      <strong>Comment:</strong>
+      <%= review.comment %>
+    </p>
+    <p class="card-text text-muted mb-0">
+      <strong>Book:</strong>
+      <%= review.book.title if review.book.present? %>
+    </p>
+  </div>
 </div>

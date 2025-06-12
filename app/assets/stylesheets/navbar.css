@@ -1,0 +1,337 @@
+:root {
+  --navbar-bg: rgba(255,255,255,0.85);
+  --navbar-bg-scrolled: rgba(255,255,255,0.98);
+  --navbar-shadow: 0 2px 16px rgba(0,0,0,0.06), 0 1.5px 0 rgba(0,0,0,0.03);
+  --navbar-shadow-scrolled: 0 8px 32px rgba(0,0,0,0.14), 0 2px 0 rgba(0,0,0,0.06);
+  --accent: #0071e3;
+  --accent-light: #e3f0fa;
+  --cta-gradient: linear-gradient(90deg, #0071e3 60%, #00c6fb 100%);
+  --text: #1b1b1f;
+  --radius: 16px;
+  --transition: 0.25s cubic-bezier(.4,1.4,.4,1);
+}
+
+/* NAVBAR */
+.bb-navbar {
+  background: var(--navbar-bg);
+  backdrop-filter: blur(18px);
+  box-shadow: var(--navbar-shadow);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  transition: background var(--transition), box-shadow var(--transition);
+  border-bottom: 1px solid #ececec;
+}
+
+.bb-navbar.scrolled {
+  background: var(--navbar-bg-scrolled);
+  box-shadow: var(--navbar-shadow-scrolled);
+}
+
+.bb-navbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 32px;
+  height: 70px;
+  position: relative;
+}
+
+/* Brand */
+.bb-brand-link {
+  display: flex;
+  align-items: center;
+  border-radius: var(--radius);
+  transition: background var(--transition);
+  padding: 4px 8px;
+}
+
+.bb-logo {
+  height: 54px;
+  width: auto;
+  transition: transform 0.18s;
+}
+.bb-brand-link:hover .bb-logo,
+.bb-brand-link:focus .bb-logo {
+  transform: scale(1.08) rotate(-2deg);
+}
+
+/* NAV LINKS - FLEX CENTERED, NO ABSOLUTE */
+.bb-nav-links {
+  display: flex;
+  gap: 40px;
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  position: static; /* Remove absolute positioning */
+  left: unset;
+  transform: unset;
+}
+
+.bb-nav-link, .bb-cta-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1.15rem;
+  padding: 8px 18px;
+  border-radius: var(--radius);
+  background: none;
+  transition: color var(--transition);
+  outline: none;
+  overflow: hidden;
+}
+
+/* DOUBLE UNDERLINE: Glow + Crisp Line */
+.bb-nav-link::after, .bb-cta-link::after,
+.bb-nav-link::before, .bb-cta-link::before {
+  content: '';
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  height: 4px;
+  border-radius: 2px;
+  bottom: 2px;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.38s cubic-bezier(.4,1.4,.4,1), opacity 0.24s;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.bb-nav-link::before, .bb-cta-link::before {
+  background: linear-gradient(90deg, #00c6fb 0%, #0071e3 100%);
+  filter: blur(6px) brightness(1.5);
+  z-index: 1;
+}
+
+.bb-nav-link::after, .bb-cta-link::after {
+  background: linear-gradient(90deg, #0071e3 0%, #00c6fb 100%);
+  z-index: 2;
+}
+
+/* HOVER/FOCUS: Animate both lines in */
+.bb-nav-link:hover::after,
+.bb-nav-link:focus-visible::after,
+.bb-nav-link:hover::before,
+.bb-nav-link:focus-visible::before,
+.bb-cta-link:hover::after,
+.bb-cta-link:focus-visible::after,
+.bb-cta-link:hover::before,
+.bb-cta-link:focus-visible::before {
+  transform: scaleX(1);
+  opacity: 1;
+}
+
+/* Optional: Slight color pop on hover */
+.bb-nav-link:hover, .bb-nav-link:focus-visible {
+  color: #0071e3;
+}
+
+/* CTA button styles remain as before */
+.bb-cta-link {
+  background: var(--cta-gradient);
+  color: #fff;
+  font-weight: 600;
+  border-radius: 24px;
+  padding: 8px 24px;
+  box-shadow: 0 2px 12px rgba(0,113,227,0.08);
+  font-size: 1.08rem;
+  letter-spacing: 0.02em;
+  transition: background 0.2s, box-shadow 0.2s, transform 0.2s, color 0.2s;
+}
+
+.bb-cta-link:hover, .bb-cta-link:focus-visible {
+  background: linear-gradient(90deg, #005bb5 60%, #0071e3 100%);
+  color: #fff;
+  transform: translateY(-2px) scale(1.04);
+}
+
+/* RIGHT ACTIONS */
+.bb-nav-actions {
+  display: flex;
+  gap: 18px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+  justify-content: flex-end;
+  flex: 0 0 auto;
+}
+
+.bb-user-greet {
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  color: #333;
+  margin-left: 1rem;
+}
+
+/* Hamburger */
+.bb-navbar-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: 16px;
+  height: 44px;
+  width: 44px;
+  padding: 0;
+  z-index: 1100;
+  border-radius: 50%;
+}
+.bb-navbar-toggle .bar {
+  width: 26px;
+  height: 3.5px;
+  background: var(--text);
+  margin: 3.5px 0;
+  border-radius: 2px;
+  transition: 0.35s cubic-bezier(.4,1.4,.4,1);
+}
+.bb-navbar-toggle.open .bar:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.bb-navbar-toggle.open .bar:nth-child(2) {
+  opacity: 0;
+}
+.bb-navbar-toggle.open .bar:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Off-canvas mobile menu */
+.bb-mobile-menu {
+  display: none;
+  background: var(--navbar-bg-scrolled);
+  box-shadow: 0 2px 16px rgba(0,0,0,0.10);
+  position: absolute;
+  top: 70px;
+  left: 0;
+  width: 100%;
+  z-index: 1090;
+  padding: 18px 0 10px 0;
+  border-radius: 0 0 var(--radius) var(--radius);
+  animation: fadeInDown 0.33s cubic-bezier(.4,1.4,.4,1);
+}
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-16px);}
+  to   { opacity: 1; transform: translateY(0);}
+}
+.bb-mobile-menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.bb-mobile-menu li {
+  margin: 0;
+  padding: 0;
+}
+.bb-mobile-menu .bb-nav-link, .bb-mobile-menu .bb-cta-link {
+  display: flex;
+  align-items: center;
+  padding: 14px 32px;
+  font-size: 1.13rem;
+  color: var(--text);
+  border-radius: 0;
+  border-bottom: 1px solid #f0f0f0;
+  background: none;
+  transition: background var(--transition), color var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+/* MOBILE MENU: Gradient double underline effect on hover/focus */
+.bb-mobile-menu .bb-nav-link::after, .bb-mobile-menu .bb-cta-link::after,
+.bb-mobile-menu .bb-nav-link::before, .bb-mobile-menu .bb-cta-link::before {
+  content: '';
+  position: absolute;
+  left: 32px;
+  right: 32px;
+  height: 4px;
+  border-radius: 2px;
+  bottom: 6px;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.38s cubic-bezier(.4,1.4,.4,1), opacity 0.24s;
+  opacity: 0;
+  pointer-events: none;
+}
+.bb-mobile-menu .bb-nav-link::before, .bb-mobile-menu .bb-cta-link::before {
+  background: linear-gradient(90deg, #00c6fb 0%, #0071e3 100%);
+  filter: blur(6px) brightness(1.5);
+  z-index: 1;
+}
+.bb-mobile-menu .bb-nav-link::after, .bb-mobile-menu .bb-cta-link::after {
+  background: linear-gradient(90deg, #0071e3 0%, #00c6fb 100%);
+  z-index: 2;
+}
+.bb-mobile-menu .bb-nav-link:hover::after,
+.bb-mobile-menu .bb-nav-link:focus-visible::after,
+.bb-mobile-menu .bb-nav-link:hover::before,
+.bb-mobile-menu .bb-nav-link:focus-visible::before,
+.bb-mobile-menu .bb-cta-link:hover::after,
+.bb-mobile-menu .bb-cta-link:focus-visible::after,
+.bb-mobile-menu .bb-cta-link:hover::before,
+.bb-mobile-menu .bb-cta-link:focus-visible::before {
+  transform: scaleX(1);
+  opacity: 1;
+}
+.bb-mobile-menu .bb-nav-link:hover, .bb-mobile-menu .bb-nav-link:focus-visible {
+  color: #0071e3;
+}
+.bb-mobile-menu .bb-cta-link:hover, .bb-mobile-menu .bb-cta-link:focus-visible {
+  color: #fff;
+  background: linear-gradient(90deg, #005bb5 60%, #0071e3 100%);
+  transform: translateY(-2px) scale(1.04);
+}
+.bb-mobile-menu .bb-nav-link i,
+.bb-mobile-menu .bb-cta-link i {
+  transition: color 0.2s, text-shadow 0.2s;
+  will-change: color, text-shadow;
+}
+.bb-mobile-menu .bb-nav-link:hover i,
+.bb-mobile-menu .bb-nav-link:focus-visible i,
+.bb-mobile-menu .bb-cta-link:hover i,
+.bb-mobile-menu .bb-cta-link:focus-visible i {
+  color: #0071e3;
+  text-shadow: 0 2px 8px rgba(0,113,227,0.12);
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  .bb-navbar-inner {
+    padding: 0 12px;
+  }
+  .bb-nav-links {
+    gap: 18px;
+  }
+}
+
+@media (max-width: 700px) {
+  .bb-navbar-inner {
+    padding: 0 8px;
+    height: 56px;
+  }
+  .bb-logo {
+    height: 40px;
+  }
+  .bb-nav-links,
+  .bb-nav-actions {
+    display: none;
+  }
+  .bb-navbar-toggle {
+    display: flex;
+  }
+  .bb-mobile-menu {
+    display: none;
+  }
+  .bb-mobile-menu.open {
+    display: block;
+  }
+}

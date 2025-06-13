@@ -1,21 +1,155 @@
-<div class="container mt-5">
-  <div class="row justify-content-center">
-    <div class="col-md-8 col-lg-6">
-      <div class="card shadow-lg rounded-4 p-4">
-        <div class="card-body text-center">
-          <h1 class="mb-4 text-primary fw-bold">About BookBuddy</h1>
-          <p class="fs-5 mb-3">
-            Welcome to <span class="fw-semibold text-primary">BookBuddy</span>, your friendly book management platform!
-          </p>
-          
-          <p class="fs-6 text-muted mb-3">
-            We help you keep track of your favorite books, organize your reading list, and discover new favorites.
-          </p>
-          <p class="fs-6 text-muted">
-            Our mission is to make reading more enjoyable and accessible for everyone.
-          </p>
+<div class="about-page py-5">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        <!-- Hero Section -->
+        <div class="text-center mb-5">
+          <h1 class="display-4 fw-bold text-gradient mb-3">About BookBuddy</h1>
+          <p class="lead text-muted">Your Personal Reading Companion</p>
+        </div>
+
+        <!-- Main Content -->
+        <div class="row g-4">
+          <!-- Mission Card -->
+          <div class="col-md-6">
+            <div class="feature-card h-100">
+              <div class="icon-wrapper mb-4">
+                <i class="bi bi-book text-primary"></i>
+              </div>
+              <h3 class="h4 mb-3">Our Mission</h3>
+              <p class="text-muted">
+                We're on a mission to make reading more enjoyable and accessible for everyone. 
+                BookBuddy helps you organize your reading journey, discover new books, and connect with fellow readers.
+              </p>
+            </div>
+          </div>
+
+          <!-- Features Card -->
+          <div class="col-md-6">
+            <div class="feature-card h-100">
+              <div class="icon-wrapper mb-4">
+                <i class="bi bi-stars text-primary"></i>
+              </div>
+              <h3 class="h4 mb-3">What We Offer</h3>
+              <ul class="feature-list">
+                <li><i class="bi bi-check-circle-fill text-success me-2"></i>Track your reading progress</li>
+                <li><i class="bi bi-check-circle-fill text-success me-2"></i>Organize your book collection</li>
+                <li><i class="bi bi-check-circle-fill text-success me-2"></i>Share your reviews</li>
+                <li><i class="bi bi-check-circle-fill text-success me-2"></i>Discover new books</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Why Choose Us -->
+          <div class="col-12 mt-4">
+            <div class="feature-card">
+              <div class="icon-wrapper mb-4">
+                <i class="bi bi-heart-fill text-primary"></i>
+              </div>
+              <h3 class="h4 mb-3">Why Choose BookBuddy?</h3>
+              <div class="row g-4">
+                <div class="col-md-4">
+                  <div class="benefit-item">
+                    <h4 class="h6 mb-2">Simple & Intuitive</h4>
+                    <p class="text-muted small">Easy-to-use interface designed for book lovers</p>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="benefit-item">
+                    <h4 class="h6 mb-2">Personalized Experience</h4>
+                    <p class="text-muted small">Tailored to your reading preferences</p>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="benefit-item">
+                    <h4 class="h6 mb-2">Always Available</h4>
+                    <p class="text-muted small">Access your library anytime, anywhere</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Call to Action -->
+        <div class="text-center mt-5">
+          <%= link_to "Get Started", root_path, class: "btn btn-primary btn-lg px-5" %>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<style>
+  .about-page {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    min-height: 100vh;
+  }
+
+  .text-gradient {
+    background: linear-gradient(135deg, #0d6efd 0%, #0dcaf0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .feature-card {
+    background: white;
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .icon-wrapper {
+    width: 60px;
+    height: 60px;
+    background: rgba(13, 110, 253, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .icon-wrapper i {
+    font-size: 1.5rem;
+  }
+
+  .feature-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .feature-list li {
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+  }
+
+  .benefit-item {
+    text-align: center;
+    padding: 1rem;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, #0d6efd 0%, #0dcaf0 100%);
+    border: none;
+    padding: 0.75rem 2rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(13, 110, 253, 0.2);
+  }
+
+  .bi {
+    vertical-align: -0.125em;
+  }
+</style>

@@ -1,26 +1,110 @@
-<%= form_with(model: [@book, review], local: true) do |form| %>
+<%= form_with(model: [@book, review], local: true, class: "review-form") do |form| %>
   <% if review.errors.any? %>
-    <div class="alert alert-danger">
-      <h5 class="mb-2"><%= pluralize(review.errors.count, "error") %> prohibited this review from being saved:</h5>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <h5 class="alert-heading mb-2">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+        <%= pluralize(review.errors.count, "error") %> prohibited this review from being saved:
+      </h5>
       <ul class="mb-0">
         <% review.errors.full_messages.each do |msg| %>
           <li><%= msg %></li>
         <% end %>
       </ul>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
   <% end %>
 
-  <div class="mb-3">
-    <%= form.label :rating, class: "form-label fw-semibold" %>
-    <%= form.number_field :rating, in: 1..5, step: 1, class: "form-control rounded-pill px-4 py-2", placeholder: "Rating (1-5)" %>
+  <div class="rating-section mb-4">
+    <%= form.label :rating, class: "form-label fw-semibold mb-3" %>
+    <div class="rating-stars">
+      <% 5.downto(1) do |i| %>
+        <%= form.radio_button :rating, i, class: "rating-input", id: "rating_#{i}" %>
+        <%= form.label "rating_#{i}", class: "rating-star" do %>
+          <i class="bi bi-star-fill"></i>
+        <% end %>
+      <% end %>
+    </div>
   </div>
 
-  <div class="mb-3">
+  <div class="mb-4">
     <%= form.label :comment, class: "form-label fw-semibold" %>
-    <%= form.text_area :comment, class: "form-control rounded-3 px-4 py-2", placeholder: "Your review..." %>
+    <%= form.text_area :comment, 
+        class: "form-control form-control-lg", 
+        rows: 4,
+        placeholder: "Share your thoughts about the book...",
+        style: "resize: none;" %>
   </div>
 
-  <div class="d-grid">
-    <%= form.submit "Submit Review", class: "btn btn-primary btn-lg rounded-pill fw-semibold shadow-sm" %>
+  <div class="d-flex gap-3">
+    <%= form.submit "Submit Review", class: "btn btn-primary btn-lg px-4" %>
+    <%= link_to "Cancel", book_path(@book), class: "btn btn-outline-secondary btn-lg px-4" %>
   </div>
 <% end %>
+
+<style>
+  .review-form {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .rating-section {
+    text-align: center;
+  }
+
+  .rating-stars {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .rating-input {
+    display: none;
+  }
+
+  .rating-star {
+    font-size: 2rem;
+    color: #e2e8f0;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .rating-star:hover,
+  .rating-star:hover ~ .rating-star,
+  .rating-input:checked ~ .rating-star {
+    color: #fbbf24;
+  }
+
+  .form-control {
+    border-radius: 0.75rem;
+    border: 1.5px solid #e2e8f0;
+    padding: 0.75rem 1rem;
+    transition: all 0.3s ease;
+  }
+
+  .form-control:focus {
+    border-color: #4f8cff;
+    box-shadow: 0 0 0 0.2rem rgba(79, 140, 255, 0.15);
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, #4f8cff 0%, #2a5298 100%);
+    border: none;
+    transition: all 0.3s ease;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(79, 140, 255, 0.3);
+  }
+
+  .btn-outline-secondary {
+    border: 1.5px solid #e2e8f0;
+    transition: all 0.3s ease;
+  }
+
+  .btn-outline-secondary:hover {
+    background: #f8fafc;
+    transform: translateY(-2px);
+  }
+</style>

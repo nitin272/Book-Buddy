@@ -1,135 +1,304 @@
 <%= content_for :head do %>
   <style>
     .dashboard-bg {
-      background: linear-gradient(135deg, #e0e7ff 0%, #f8fafc 100%);
+      background: linear-gradient(135deg, #f6f9fc 0%, #edf2f7 100%);
       min-height: 100vh;
+      position: relative;
+      overflow: hidden;
     }
-    .profile-avatar {
-      width: 56px;
-      height: 56px;
-      object-fit: cover;
-      border-radius: 50%;
-      border: 3px solid #4f8cff;
-      background: #fff;
+
+    .dashboard-bg::before {
+      content: '';
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(79, 140, 255, 0.05) 0%, transparent 60%);
+      animation: rotate 30s linear infinite;
     }
-    .book-cover {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-      background: #f1f3f6;
-      border-radius: 1rem 1rem 0 0;
+
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
     }
-    .empty-illustration {
-      width: 120px;
-      margin-bottom: 1.5rem;
-      opacity: 0.7;
+
+    .dashboard-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 32px rgba(31, 38, 135, 0.08);
+      border-radius: 24px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-    .navbar-brand {
-      font-weight: bold;
-      letter-spacing: 1px;
+
+    .dashboard-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 40px rgba(31, 38, 135, 0.12);
+    }
+
+    .welcome-section {
+      position: relative;
+      padding: 2rem;
+      background: linear-gradient(135deg, #4f8cff 0%, #2a5298 100%);
+      border-radius: 20px;
+      color: white;
+      margin-bottom: 2rem;
+      overflow: hidden;
+    }
+
+    .welcome-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+      opacity: 0.5;
+    }
+
+    .user-info-card {
+      background: white;
+      border-radius: 16px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease;
+    }
+
+    .user-info-card:hover {
+      transform: translateY(-3px);
+    }
+
+    .book-card {
+      background: white;
+      border-radius: 16px;
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .book-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .book-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .book-icon {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, #4f8cff 0%, #2a5298 100%);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    .book-info {
+      flex-grow: 1;
+    }
+
+    .book-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #2d3748;
+      margin-bottom: 0.25rem;
+    }
+
+    .book-author {
+      color: #718096;
+      font-size: 0.95rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .book-genre {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      background: #ebf8ff;
+      color: #2b6cb0;
+      border-radius: 1rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    .book-actions {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: auto;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 3rem 1rem;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    .empty-state-icon {
+      font-size: 4rem;
+      color: #4f8cff;
+      margin-bottom: 1rem;
+    }
+
+    .btn-add-book {
+      background: linear-gradient(135deg, #4f8cff 0%, #2a5298 100%);
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 1rem;
+      color: white;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .btn-add-book:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(79, 140, 255, 0.3);
+      color: white;
+    }
+
+    .btn-action {
+      padding: 0.5rem 1rem;
+      border-radius: 0.75rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .btn-action:hover {
+      transform: translateY(-2px);
     }
   </style>
 <% end %>
 
 <div class="dashboard-bg py-5">
-  
-
   <div class="container">
     <div class="row justify-content-center">
-      <div class="col-md-9 col-lg-8">
-        <div class="card shadow border-0 rounded-4">
-          <div class="card-body p-5">
-
-            <% flash.each do |key, message| %>
-              <% alert_class = case key.to_s
-                when "notice" then "success"
-                when "alert" then "danger"
-                when "warning" then "warning"
-                else "info"
+      <div class="col-lg-10">
+        <div class="dashboard-card p-4 p-md-5">
+          <% flash.each do |key, message| %>
+            <% alert_class = case key.to_s
+              when "notice" then "success"
+              when "alert" then "danger"
+              when "warning" then "warning"
+              else "info"
+            end %>
+            <div class="alert alert-<%= alert_class %> alert-dismissible fade show d-flex align-items-center gap-2" role="alert">
+              <% icon = case alert_class
+                when "success" then "bi bi-check-circle-fill text-success"
+                when "danger" then "bi bi-exclamation-triangle-fill text-danger"
+                when "warning" then "bi bi-exclamation-circle-fill text-warning"
+                else "bi bi-info-circle-fill text-info"
               end %>
-              <div class="alert alert-<%= alert_class %> alert-dismissible fade show d-flex align-items-center gap-2" role="alert">
-   
-                <% icon = case alert_class
-                  when "success" then "bi bi-check-circle-fill text-success"
-                  when "danger" then "bi bi-exclamation-triangle-fill text-danger"
-                  when "warning" then "bi bi-exclamation-circle-fill text-warning"
-                  else "bi bi-info-circle-fill text-info"
-                end %>
-                <i class="<%= icon %> fs-4"></i>
-                <span><%= message %></span>
-                <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="Close"></button>
-              </div>
-            <% end %>
-
-            <!-- Welcome Section -->
-            <div class="text-center mb-5">
-             
-              <h1 class="mb-2 text-primary fw-bold display-5">
-                👋 Welcome, <%= @user.name %>!
-              </h1>
-              <p class="text-secondary fs-5 mb-0">
-                You have successfully logged in to your dashboard.
-              </p>
+              <i class="<%= icon %> fs-4"></i>
+              <span><%= message %></span>
+              <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
+          <% end %>
 
-
-            <div class="row justify-content-center mb-4">
+          <div class="welcome-section">
+            <div class="row align-items-center">
               <div class="col-md-8">
-                <div class="card border-0 shadow-sm rounded-3 mb-4">
-                  <div class="card-body d-flex flex-column flex-md-row gap-3 align-items-center justify-content-between px-4 py-3">
-                    <div>
-                      <span class="fw-semibold text-muted">Email</span>
-                      <div class="text-dark"><i class="bi bi-envelope-fill me-2"></i><%= @user.email %></div>
-                    </div>
-                    <div>
-                      <span class="fw-semibold text-muted">Name</span>
-                      <div class="text-dark"><i class="bi bi-person-fill me-2"></i><%= @user.name %></div>
-                    </div>
+                <h1 class="display-5 fw-bold mb-3">👋 Welcome back, <%= @user.name %>!</h1>
+                <p class="lead mb-0">Your personal reading journey continues here.</p>
+              </div>
+              <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                <%= link_to new_book_path, class: "btn btn-light btn-lg rounded-pill fw-semibold px-4 py-2" do %>
+                  <i class="bi bi-plus-circle me-2"></i>Add New Book
+                <% end %>
+              </div>
+            </div>
+          </div>
+
+          <div class="row g-4 mb-5">
+            <div class="col-md-6">
+              <div class="user-info-card">
+                <div class="d-flex align-items-center gap-3">
+                  <div class="flex-shrink-0">
+                    <i class="bi bi-person-circle fs-1 text-primary"></i>
+                  </div>
+                  <div>
+                    <h6 class="text-muted mb-1">Your Name</h6>
+                    <h5 class="mb-0"><%= @user.name %></h5>
                   </div>
                 </div>
               </div>
             </div>
+            <div class="col-md-6">
+              <div class="user-info-card">
+                <div class="d-flex align-items-center gap-3">
+                  <div class="flex-shrink-0">
+                    <i class="bi bi-envelope-fill fs-1 text-primary"></i>
+                  </div>
+                  <div>
+                    <h6 class="text-muted mb-1">Email Address</h6>
+                    <h5 class="mb-0"><%= @user.email %></h5>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
+          <h2 class="text-center mb-4 fw-bold">📚 Your Library</h2>
 
-            <h2 class="text-center mb-4 mt-5 fw-semibold">📚 Your Books</h2>
+          <div class="text-center mb-4">
+            <%= link_to new_book_path, class: "btn btn-primary btn-lg rounded-pill px-5 py-3 shadow-sm" do %>
+              <i class="bi bi-plus-circle me-2"></i>Add New Book
+            <% end %>
+          </div>
 
-            <% if @books.any? %>
-              <div class="row row-cols-1 row-cols-md-2 g-4 mb-5">
-                <% @books.each do |book| %>
-                  <div class="col">
-                    <div class="card h-100 shadow-sm border-0 rounded-4">
-                   
-                        <div>
-                          <h5 class="card-title mb-2 text-primary fw-bold"><%= book.title %></h5>
-                          <h6 class="card-subtitle mb-3 text-muted fst-italic">by <%= book.author %></h6>
-                          <% if book.genre.present? %>
-                            <span class="badge bg-info text-dark mb-2"><%= book.genre %></span>
-                          <% end %>
-                        </div>
-                        <div class="mt-auto d-flex gap-2">
-                          <%= link_to "View", book_path(book), class: "btn btn-outline-primary btn-sm rounded-pill fw-semibold", title: "View Book" %>
-                          <%= link_to "Edit", edit_book_path(book), class: "btn btn-outline-warning btn-sm rounded-pill fw-semibold", title: "Edit Book" %>
-                          <%= link_to "Delete", book_path(book), method: :delete, data: { confirm: "Are you sure you want to delete this book?" }, class: "btn btn-outline-danger btn-sm rounded-pill fw-semibold", title: "Delete Book" %>
-                        </div>
+          <% if @books.any? %>
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+              <% @books.each do |book| %>
+                <div class="col">
+                  <div class="book-card">
+                    <div class="book-header">
+                      <div class="book-icon">
+                        <i class="bi bi-book"></i>
+                      </div>
+                      <div class="book-info">
+                        <h3 class="book-title"><%= book.title %></h3>
+                        <p class="book-author">by <%= book.author %></p>
+                        <% if book.genre.present? %>
+                          <span class="book-genre"><%= book.genre %></span>
+                        <% end %>
                       </div>
                     </div>
+                    <div class="book-actions">
+                      <%= link_to book_path(book), class: "btn btn-action btn-outline-primary flex-grow-1", title: "View Book" do %>
+                        <i class="bi bi-eye me-1"></i> View
+                      <% end %>
+                      <%= link_to edit_book_path(book), class: "btn btn-action btn-outline-warning flex-grow-1", title: "Edit Book" do %>
+                        <i class="bi bi-pencil me-1"></i> Edit
+                      <% end %>
+                      <%= link_to book_path(book), method: :delete, data: { confirm: "Are you sure you want to delete this book?" }, class: "btn btn-action btn-outline-danger flex-grow-1", title: "Delete Book" do %>
+                        <i class="bi bi-trash me-1"></i> Delete
+                      <% end %>
+                    </div>
                   </div>
-                <% end %>
-              </div>
-            <% else %>
-              <div class="text-center my-5">
-             
-                <p class="text-muted fs-5 fst-italic mb-3">You have not added any books yet.</p>
-                <%= link_to "➕ Add Your First Book", new_book_path, class: "btn btn-primary btn-lg rounded-pill fw-semibold shadow-sm" %>
-              </div>
-            <% end %>
-
-       
-            <div class="d-grid gap-3 mt-4">
-              <%= link_to "➕ Add New Book", new_book_path, class: "btn btn-primary btn-lg rounded-pill fw-semibold shadow-sm" %>
+                </div>
+              <% end %>
             </div>
-
-          </div>
+          <% else %>
+            <div class="empty-state">
+              <div class="empty-state-icon">
+                <i class="bi bi-book"></i>
+              </div>
+              <h3 class="mb-3">Your library is empty</h3>
+              <p class="text-muted mb-4">Start your reading journey by adding your first book!</p>
+              <%= link_to new_book_path, class: "btn btn-add-book px-4 py-2" do %>
+                <i class="bi bi-plus-circle me-2"></i>Add Your First Book
+              <% end %>
+            </div>
+          <% end %>
         </div>
       </div>
     </div>

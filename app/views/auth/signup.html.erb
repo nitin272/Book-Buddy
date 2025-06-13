@@ -1,38 +1,49 @@
-<div class="card glass shadow">
-  <div class="text-center mb-4">
+<div class="signup-container">
+  <div class="card glass shadow">
+    <div class="signup-header">
+      <h2 class="text-center mb-4 fw-bold">📝 Join BookBuddy</h2>
+      <p class="text-center text-muted">Create your account to start your reading journey</p>
+    </div>
 
-  </div>
-        <%= stylesheet_link_tag 'login', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'signup', media: 'all', 'data-turbolinks-track': 'reload' %>
 
-  <h2 class="text-center mb-4 fw-bold">📝 Create Your Account</h2>
-  <div class="d-grid gap-2 mb-3">
-    <button type="button" class="btn btn-google btn-lg" disabled>
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" alt="Google logo" />
-      Continue with Google
-    </button>
-  </div>
-  <div class="divider">or</div>
-  <%= form_with model: @user, url: signup_path, local: true do |f| %>
-    <div class="mb-3">
-      <%= f.label :name, class: "form-label" %>
-      <%= f.text_field :name, class: "form-control", placeholder: "Your full name" %>
+    <div class="social-signup">
+      <button type="button" class="btn btn-google btn-lg">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" alt="Google logo" />
+        Continue with Google
+      </button>
     </div>
-    <div class="mb-3">
-      <%= f.label :email, class: "form-label" %>
-      <%= f.email_field :email, class: "form-control", placeholder: "Your email" %>
-    </div>
-    <div class="mb-3">
-      <%= f.label :password, class: "form-label" %>
-      <%= f.password_field :password, class: "form-control", placeholder: "Choose a password" %>
-    </div>
-    <div class="d-grid gap-2 mb-3">
-      <%= f.submit "Sign Up", class: "btn btn-gradient btn-lg" %>
-    </div>
-  <% end %>
 
-  <div class="text-center">
-    <p>Already have an account?
-      <%= link_to "Login", login_path, class: "btn btn-sm btn-outline-primary ms-2" %>
-    </p>
+    <div class="divider">
+      <span>or sign up with email</span>
+    </div>
+
+    <%= form_with model: @user, url: signup_path, local: true, class: "signup-form" do |f| %>
+      <div class="form-floating mb-3">
+        <%= f.text_field :name, class: "form-control", id: "nameInput", placeholder: "John Doe" %>
+        <%= f.label :name, "Full Name", for: "nameInput" %>
+      </div>
+
+      <div class="form-floating mb-3">
+        <%= f.email_field :email, class: "form-control", id: "emailInput", placeholder: "name@example.com" %>
+        <%= f.label :email, "Email Address", for: "emailInput" %>
+      </div>
+
+      <div class="form-floating mb-3">
+        <%= f.password_field :password, class: "form-control", id: "passwordInput", placeholder: "Password" %>
+        <%= f.label :password, "Password", for: "passwordInput" %>
+      </div>
+
+      <div class="d-grid gap-2 mb-3">
+        <%= f.submit "Create Account", class: "btn btn-gradient btn-lg" %>
+      </div>
+    <% end %>
+
+    <div class="signup-footer text-center">
+      <p class="mt-3">
+        Already have an account?
+        <%= link_to "Sign In", login_path, class: "btn btn-sm btn-outline-secondary ms-2" %>
+      </p>
+    </div>
   </div>
 </div>

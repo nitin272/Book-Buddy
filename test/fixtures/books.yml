@@ -2,8 +2,12 @@ one:
   title: "Sample Book"
   author: "Sample Author"
   user: one
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
 
 two:
   title: "Another Book"
   author: "Another Author"
   user: two
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>

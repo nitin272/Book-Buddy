@@ -16,40 +16,59 @@ class ReviewsTest < ApplicationSystemTestCase
     click_on "Login"
   end
 
-  test "visiting the index" do
-    visit book_reviews_url(@book)
-    assert_selector "h1", text: "Reviews"
+  test "visiting the book page shows reviews" do
+    visit book_path(@book)
+    assert_selector "h1", text: @book.title
+    assert_selector ".reviews-section"
   end
 
   test "should create review" do
-    visit book_reviews_url(@book)
-    click_on "New review"
+    visit book_path(@book)
+    click_on "Add Review"
 
     fill_in "Comment", with: "Excellent book!"
-    fill_in "Rating", with: 5
+    select "5", from: "Rating"
     click_on "Create Review"
 
     assert_text "Review was successfully created"
-    click_on "Back"
+    assert_selector ".review-card", text: "Excellent book!"
   end
 
   test "should update Review" do
-    visit book_review_url(@book, @review)
-    click_on "Edit this review", match: :first
+    visit book_path(@book)
+    within ".review-card" do
+      click_on "Edit"
+    end
 
     fill_in "Comment", with: "Updated comment"
-    fill_in "Rating", with: 4
+    select "4", from: "Rating"
     click_on "Update Review"
 
     assert_text "Review was successfully updated"
-    click_on "Back"
+    assert_selector ".review-card", text: "Updated comment"
   end
 
- test "should destroy Review" do
-  visit book_review_url(@book, @review)
+  test "should destroy Review" do
+    visit book_path(@book)
+    within ".review-card" do
+      accept_confirm do
+        click_on "Delete"
+      end
+    end
 
-  click_on "Destroy this review", match: :first
+    assert_text "Review was successfully deleted"
+    assert_no_selector ".review-card", text: @review.comment
+  end
 
-  assert_text "Review was successfully destroyed"
-end
+  test "should not allow unauthorized user to edit review" do
+    # Log out current user
+    click_on "Logout"
+
+    # Log in as different user
+    other_user = users(:two)
+    log_in_as(other_user)
+
+    visit book_path(@book)
+    assert_no_selector "a", text: "Edit"
+  end
 end

@@ -1,29 +1,144 @@
-<div class="container mt-5">
-  <h1>Books for <%= current_user.name %></h1>
-
-  <% flash.each do |key, message| %>
-    <div class="alert alert-<%= key == "alert" ? "danger" : "success" %> alert-dismissible fade show" role="alert">
-      <%= message %>
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-  <% end %>
-
-  <% if @books.any? %>
-    <ul class="list-group">
-      <% @books.each do |book| %>
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-          <div>
-            <strong><%= book.title %></strong> by <%= book.author %>
-          </div>
-          <%= link_to "View", book_path(book), class: "btn btn-sm btn-primary" %>
-        </li>
+<div class="books-index-page py-5">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <div>
+        <h1 class="display-4 mb-2">My Library</h1>
+        <p class="text-muted">Welcome back, <%= current_user.name %></p>
+      </div>
+      <%= link_to new_book_path, class: "btn btn-primary btn-lg" do %>
+        <i class="bi bi-plus-circle me-2"></i>Add New Book
       <% end %>
-    </ul>
-  <% else %>
-    <p>No books found for this user.</p>
-  <% end %>
+    </div>
 
-  <%= link_to "Add New Book", new_book_path, class: "btn btn-success mt-3" %>
+    <% flash.each do |key, message| %>
+      <div class="alert alert-<%= key == "alert" ? "danger" : "success" %> alert-dismissible fade show shadow-sm" role="alert">
+        <i class="bi bi-<%= key == "alert" ? "exclamation-circle" : "check-circle" %> me-2"></i>
+        <%= message %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <% end %>
+
+    <% if @books.any? %>
+      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        <% @books.each do |book| %>
+          <div class="col">
+            <div class="book-card h-100">
+              <div class="book-card-content">
+                <h3 class="book-title"><%= book.title %></h3>
+                <p class="book-author">
+                  <i class="bi bi-person me-2"></i><%= book.author %>
+                </p>
+                <% if book.genre.present? %>
+                  <p class="book-genre">
+                    <i class="bi bi-bookmark me-2"></i><%= book.genre %>
+                  </p>
+                <% end %>
+                <% if book.notes.present? %>
+                  <p class="book-notes">
+                    <i class="bi bi-pencil me-2"></i><%= truncate(book.notes, length: 100) %>
+                  </p>
+                <% end %>
+              </div>
+              <div class="book-card-actions">
+                <%= link_to book_path(book), class: "btn btn-primary" do %>
+                  <i class="bi bi-eye me-2"></i>View Details
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="empty-state text-center py-5">
+        <i class="bi bi-book display-1 text-muted mb-3"></i>
+        <h3>Your Library is Empty</h3>
+        <p class="text-muted mb-4">Start by adding your first book to your collection.</p>
+        <%= link_to new_book_path, class: "btn btn-primary btn-lg" do %>
+          <i class="bi bi-plus-circle me-2"></i>Add Your First Book
+        <% end %>
+      </div>
+    <% end %>
+  </div>
 </div>
+
+<style>
+  .books-index-page {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    min-height: 100vh;
+  }
+
+  .book-card {
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .book-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .book-card-content {
+    padding: 1.5rem;
+    flex-grow: 1;
+  }
+
+  .book-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #2d3748;
+    margin-bottom: 0.75rem;
+  }
+
+  .book-author, .book-genre, .book-notes {
+    color: #4a5568;
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .book-notes {
+    color: #718096;
+    font-style: italic;
+  }
+
+  .book-card-actions {
+    padding: 1rem 1.5rem;
+    background: #f8f9fa;
+    border-top: 1px solid #e2e8f0;
+  }
+
+  .empty-state {
+    background: white;
+    border-radius: 1rem;
+    padding: 3rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .alert {
+    border: none;
+    border-radius: 0.75rem;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(66, 153, 225, 0.2);
+  }
+
+  .bi {
+    vertical-align: -0.125em;
+  }
+</style>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

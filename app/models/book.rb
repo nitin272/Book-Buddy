@@ -2,7 +2,10 @@ class Book < ApplicationRecord
   belongs_to :user
   has_many :reviews, dependent: :destroy
 
-  validates :title, presence: true, length: { minimum: 2, maximum: 100 }
-  validates :author, presence: true, length: { minimum: 2, maximum: 100 }
-  validates :title, uniqueness: { scope: :author, message: "by this author already exists" }
+  validates :title, presence: true
+  validates :author, presence: true
+  validates :user, presence: true
+
+  scope :recent, -> { order(created_at: :desc) }
+  scope :with_reviews, -> { includes(:reviews) }
 end

@@ -10,64 +10,109 @@
 <body>
   <header class="landing-hero">
     <div class="hero-content">
-        <%= image_tag 'bookbuddy_logo.svg', alt: 'BookBuddy Logo', class: 'apple-logo' %>
-      <h1 class="hero-title">BookBuddy</h1>
+      <%= image_tag 'bookbuddy_logo.svg', alt: 'BookBuddy Logo', class: 'hero-logo' %>
+      <h1 class="hero-title">Your Smart Reading Companion</h1>
       <div class="hero-tagline">
         <span><i class="fas fa-quote-left"></i> Read More. Discover More. Be Inspired. <i class="fas fa-quote-right"></i></span>
       </div>
-      <a href="/signup" class="cta-button">Join Now – It’s Free</a>
+      <div class="hero-cta-group">
+        <a href="/signup" class="cta-button primary">Get Started Free</a>
+        <a href="#features" class="cta-button secondary">See How It Works <i class="fas fa-arrow-right"></i></a>
+      </div>
       <div class="hero-values">
-        <div><i class="fas fa-user-friends"></i> Join a community of book lovers</div>
-        <div><i class="fas fa-magic"></i> Smart, personalized recommendations</div>
-        <div><i class="fas fa-star"></i> Track, review, and share your reads</div>
+        <div class="value-item"><i class="fas fa-user-friends"></i> Join 10k+ Readers</div>
+        <div class="value-item"><i class="fas fa-magic"></i> AI-Powered Recommendations</div>
+        <div class="value-item"><i class="fas fa-star"></i> Track & Share Reads</div>
       </div>
       <div class="hero-social-proof">
-        <img src="https://randomuser.me/api/portraits/thumb/men/75.jpg" alt="User" />
-        <img src="https://randomuser.me/api/portraits/thumb/women/65.jpg" alt="User" />
-        <img src="https://randomuser.me/api/portraits/thumb/men/34.jpg" alt="User" />
-        <span>Trusted by thousands of readers</span>
-      </div>
-      <div class="hero-scroll-cue">
-        <span>See what you can do</span>
-        <i class="fas fa-angle-down"></i>
+        <div class="user-avatars">
+          <img src="https://randomuser.me/api/portraits/thumb/men/75.jpg" alt="User" />
+          <img src="https://randomuser.me/api/portraits/thumb/women/65.jpg" alt="User" />
+          <img src="https://randomuser.me/api/portraits/thumb/men/34.jpg" alt="User" />
+          <div class="more-users">+2.5k</div>
+        </div>
+        <div class="social-stats">
+          <div class="stat-item">
+            <span class="stat-number">4.9</span>
+            <span class="stat-label">App Store Rating</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">10k+</span>
+            <span class="stat-label">Active Readers</span>
+          </div>
+        </div>
       </div>
     </div>
     <div class="hero-image">
+      <div class="floating-card card-1">
+        <i class="fas fa-book"></i>
+        <span>Track Progress</span>
+      </div>
+      <div class="floating-card card-2">
+        <i class="fas fa-chart-line"></i>
+        <span>Reading Stats</span>
+      </div>
+      <div class="floating-card card-3">
+        <i class="fas fa-users"></i>
+        <span>Join Clubs</span>
+      </div>
     </div>
   </header>
-  <section class="features-section">
+
+  <section class="features-section" id="features">
     <div class="container">
-      <div class="section-title">What You Can Do</div>
+      <div class="section-header">
+        <h2 class="section-title">Everything You Need to Read Better</h2>
+        <p class="section-subtitle">Discover features designed to enhance your reading journey</p>
+      </div>
       <div class="feature-grid">
         <div class="feature">
-          <img src="https://cdn-icons-png.flaticon.com/512/3062/3062634.png" alt="Track Reading" />
-          <h3>Track Reading</h3>
-          <p>Log your progress, mark chapters, and revisit old reads anytime.</p>
+          <div class="feature-icon">
+            <img src="https://cdn-icons-png.flaticon.com/512/3062/3062634.png" alt="Track Reading" />
+          </div>
+          <h3>Smart Reading Tracker</h3>
+          <p>Log your progress, mark chapters, and revisit old reads anytime. Get insights into your reading habits.</p>
+          <a href="#" class="feature-link">Learn more <i class="fas fa-arrow-right"></i></a>
         </div>
         <div class="feature">
-          <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Personalized Picks" />
-          <h3>Get Personalized Picks</h3>
-          <p>Smart recommendations that match your interests and genres.</p>
+          <div class="feature-icon">
+            <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Personalized Picks" />
+          </div>
+          <h3>AI Book Recommendations</h3>
+          <p>Get personalized book suggestions based on your reading history and preferences.</p>
+          <a href="#" class="feature-link">Learn more <i class="fas fa-arrow-right"></i></a>
         </div>
         <div class="feature">
-          <img src="https://cdn-icons-png.flaticon.com/512/1828/1828919.png" alt="Write Reviews" />
-          <h3>Write Reviews</h3>
-          <p>Express your thoughts on books and help others discover them.</p>
+          <div class="feature-icon">
+            <img src="https://cdn-icons-png.flaticon.com/512/1828/1828919.png" alt="Write Reviews" />
+          </div>
+          <h3>Rich Reviews</h3>
+          <p>Share your thoughts with the community. Rate, review, and discuss your favorite books.</p>
+          <a href="#" class="feature-link">Learn more <i class="fas fa-arrow-right"></i></a>
         </div>
         <div class="feature">
-          <img src="https://cdn-icons-png.flaticon.com/512/3062/3062633.png" alt="Join Book Clubs" />
-          <h3>Join Book Clubs</h3>
-          <p>Connect with readers, join discussions, and make new friends.</p>
+          <div class="feature-icon">
+            <img src="https://cdn-icons-png.flaticon.com/512/3062/3062633.png" alt="Join Book Clubs" />
+          </div>
+          <h3>Book Clubs</h3>
+          <p>Join virtual book clubs, participate in discussions, and connect with fellow readers.</p>
+          <a href="#" class="feature-link">Learn more <i class="fas fa-arrow-right"></i></a>
         </div>
         <div class="feature">
-          <img src="https://cdn-icons-png.flaticon.com/512/2278/2278992.png" alt="Reading Challenges" />
+          <div class="feature-icon">
+            <img src="https://cdn-icons-png.flaticon.com/512/2278/2278992.png" alt="Reading Challenges" />
+          </div>
           <h3>Reading Challenges</h3>
-          <p>Participate in monthly challenges and earn badges for your achievements.</p>
+          <p>Set goals, earn badges, and track your progress through monthly reading challenges.</p>
+          <a href="#" class="feature-link">Learn more <i class="fas fa-arrow-right"></i></a>
         </div>
         <div class="feature">
-          <img src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png" alt="Share Recommendations" />
-          <h3>Share Recommendations</h3>
-          <p>Suggest your favorite books to friends and followers.</p>
+          <div class="feature-icon">
+            <img src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png" alt="Share Recommendations" />
+          </div>
+          <h3>Share & Discover</h3>
+          <p>Share your reading list and discover new books through your friends' recommendations.</p>
+          <a href="#" class="feature-link">Learn more <i class="fas fa-arrow-right"></i></a>
         </div>
       </div>
     </div>
@@ -75,37 +120,71 @@
 
   <section class="bookshelf-section">
     <div class="container">
-      <div class="section-title">My Bookshelf</div>
+      <div class="section-header">
+        <h2 class="section-title">Your Digital Bookshelf</h2>
+        <p class="section-subtitle">Organize, track, and enhance your reading experience</p>
+      </div>
       <div class="feature-grid">
         <div class="feature">
-          <img src="https://cdn-icons-png.flaticon.com/512/3062/3062635.png" alt="My Books" />
-          <h3>My Books</h3>
-          <p>Curate a collection of your favorite books across genres.</p>
+          <div class="feature-icon">
+            <img src="https://cdn-icons-png.flaticon.com/512/3062/3062635.png" alt="My Books" />
+          </div>
+          <h3>Smart Library</h3>
+          <p>Organize your books by genre, author, or reading status. Access your library anywhere.</p>
+          <a href="#" class="feature-link">Learn more <i class="fas fa-arrow-right"></i></a>
         </div>
         <div class="feature">
-          <img src="https://cdn-icons-png.flaticon.com/512/3135/3135768.png" alt="Set Reading Goals" />
-          <h3>Set Reading Goals</h3>
-          <p>Challenge yourself with yearly goals and track your pace.</p>
+          <div class="feature-icon">
+            <img src="https://cdn-icons-png.flaticon.com/512/3135/3135768.png" alt="Set Reading Goals" />
+          </div>
+          <h3>Reading Goals</h3>
+          <p>Set yearly reading goals and track your progress with beautiful visualizations.</p>
+          <a href="#" class="feature-link">Learn more <i class="fas fa-arrow-right"></i></a>
         </div>
         <div class="feature">
-          <img src="https://cdn-icons-png.flaticon.com/512/2278/2278991.png" alt="Quick Notes" />
-          <h3>Quick Notes</h3>
-          <p>Jot down memorable quotes or key points as you read.</p>
+          <div class="feature-icon">
+            <img src="https://cdn-icons-png.flaticon.com/512/2278/2278991.png" alt="Quick Notes" />
+          </div>
+          <h3>Smart Notes</h3>
+          <p>Capture quotes, thoughts, and highlights. Organize them by book or topic.</p>
+          <a href="#" class="feature-link">Learn more <i class="fas fa-arrow-right"></i></a>
         </div>
         <div class="feature">
-          <img src="https://cdn-icons-png.flaticon.com/512/3135/3135766.png" alt="Wishlist" />
-          <h3>Wishlist</h3>
-          <p>Create and manage your reading wishlist for future inspiration.</p>
+          <div class="feature-icon">
+            <img src="https://cdn-icons-png.flaticon.com/512/3135/3135766.png" alt="Wishlist" />
+          </div>
+          <h3>Reading List</h3>
+          <p>Create and manage your reading wishlist. Get notified about new releases.</p>
+          <a href="#" class="feature-link">Learn more <i class="fas fa-arrow-right"></i></a>
         </div>
         <div class="feature">
-          <img src="https://cdn-icons-png.flaticon.com/512/2278/2278990.png" alt="Reading Stats" />
-          <h3>Reading Stats</h3>
-          <p>Visualize your reading journey with beautiful charts and insights.</p>
+          <div class="feature-icon">
+            <img src="https://cdn-icons-png.flaticon.com/512/2278/2278990.png" alt="Reading Stats" />
+          </div>
+          <h3>Reading Analytics</h3>
+          <p>Get insights into your reading habits with detailed statistics and trends.</p>
+          <a href="#" class="feature-link">Learn more <i class="fas fa-arrow-right"></i></a>
         </div>
         <div class="feature">
-          <img src="https://cdn-icons-png.flaticon.com/512/3135/3135743.png" alt="Export Library" />
-          <h3>Export Library</h3>
-          <p>Export your bookshelf or notes for backup or sharing.</p>
+          <div class="feature-icon">
+            <img src="https://cdn-icons-png.flaticon.com/512/3135/3135743.png" alt="Export Library" />
+          </div>
+          <h3>Export & Share</h3>
+          <p>Export your library, notes, and reading history. Share with friends or backup.</p>
+          <a href="#" class="feature-link">Learn more <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-content">
+        <h2>Ready to Start Your Reading Journey?</h2>
+        <p>Join thousands of readers who are already using BookBuddy to enhance their reading experience.</p>
+        <div class="cta-buttons">
+          <a href="/signup" class="cta-button primary">Get Started Free</a>
+          <a href="#features" class="cta-button secondary">Learn More</a>
         </div>
       </div>
     </div>

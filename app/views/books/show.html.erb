@@ -1,112 +1,608 @@
-<div class="container py-5">
-  <div class="row justify-content-center">
-    <div class="col-lg-8">
-
-      <!-- Book Details Card -->
-      <div class="card shadow border-0 rounded-4 mb-5">
-        <div class="card-body p-5">
-
-          <h1 class="mb-3 text-primary fw-bold">
-            <i class="bi bi-book-half me-2"></i>
-            <%= @book.title %>
-          </h1>
+<div class="book-show-page py-5">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        <!-- Book Details Card -->
+        <div class="book-details-card mb-5">
+          <div class="book-header">
+            <div class="book-title-section">
+              <h1 class="book-title">
+                <i class="bi bi-book-half me-2"></i>
+                <%= @book.title %>
+              </h1>
+              <div class="book-meta">
+                <span class="meta-item">
+                  <i class="bi bi-calendar3"></i>
+                  Added <%= time_ago_in_words(@book.created_at) %> ago
+                </span>
+                <span class="meta-item">
+                  <i class="bi bi-chat-left-text"></i>
+                  <%= pluralize(@book.reviews.count, 'review') %>
+                </span>
+              </div>
+            </div>
+            <div class="book-actions">
+              <%= link_to edit_book_path(@book), class: "btn btn-warning", title: "Edit Book" do %>
+                <i class="bi bi-pencil me-1"></i> Edit
+              <% end %>
+              <%= button_to book_path(@book), 
+                  method: :delete, 
+                  data: { confirm: "Are you sure you want to delete this book?" },
+                  class: "btn btn-danger",
+                  title: "Delete Book" do %>
+                <i class="bi bi-trash me-1"></i> Delete
+              <% end %>
+            </div>
+          </div>
 
           <% flash.each do |key, message| %>
             <% alert_class = key == "alert" ? "danger" : "success" %>
-            <div class="alert alert-<%= alert_class %> alert-dismissible fade show d-flex align-items-center gap-2" role="alert">
-              <% icon = alert_class == "danger" ? "bi bi-exclamation-triangle-fill text-danger" : "bi bi-check-circle-fill text-success" %>
-              <i class="<%= icon %> fs-5"></i>
-              <span><%= message %></span>
-              <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="Close"></button>
+            <div class="alert alert-<%= alert_class %> alert-dismissible fade show" role="alert">
+              <div class="d-flex align-items-center">
+                <% icon = alert_class == "danger" ? "bi bi-exclamation-triangle-fill" : "bi bi-check-circle-fill" %>
+                <i class="<%= icon %> me-2"></i>
+                <span><%= message %></span>
+              </div>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
           <% end %>
 
-          <ul class="list-group list-group-flush mb-4">
-            <li class="list-group-item px-0">
-              <strong>Author:</strong> <%= @book.author %>
-            </li>
-            <li class="list-group-item px-0">
-              <strong>Genre:</strong> <%= @book.genre %>
-            </li>
-            <li class="list-group-item px-0">
-              <strong>Notes:</strong> <%= @book.notes %>
-            </li>
-          </ul>
-
-          <div class="d-flex gap-2 mb-3">
-            <%= link_to "Edit", edit_book_path(@book), class: "btn btn-warning rounded-pill fw-semibold" %>
-            <%= link_to "Back", books_path, class: "btn btn-secondary rounded-pill fw-semibold" %>
-            <%= button_to "Delete", book_path(@book), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger rounded-pill fw-semibold" %>
+          <div class="book-info">
+            <div class="info-item">
+              <i class="bi bi-person-circle"></i>
+              <div>
+                <label>Author</label>
+                <span><%= @book.author %></span>
+              </div>
+            </div>
+            <div class="info-item">
+              <i class="bi bi-tag"></i>
+              <div>
+                <label>Genre</label>
+                <span><%= @book.genre %></span>
+              </div>
+            </div>
+            <div class="info-item">
+              <i class="bi bi-journal-text"></i>
+              <div>
+                <label>Notes</label>
+                <span><%= @book.notes %></span>
+              </div>
+            </div>
           </div>
+
+          <%= link_to books_path, class: "btn btn-outline-primary mt-4" do %>
+            <i class="bi bi-arrow-left me-1"></i> Back to Books
+          <% end %>
         </div>
-      </div>
 
-      <!-- Reviews Section -->
-      <div class="card shadow border-0 rounded-4 mb-5">
-        <div class="card-body p-5">
-
-          <h3 class="mb-4 text-success fw-bold">
-            <i class="bi bi-chat-left-text me-2"></i>
-            Reviews
-          </h3>
+        <!-- Reviews Section -->
+        <div class="reviews-section">
+          <div class="section-header">
+            <div class="header-content">
+              <h2>
+                <i class="bi bi-chat-left-text me-2"></i>
+                Reviews
+              </h2>
+              <div class="review-stats">
+                <div class="stat-item">
+                  <span class="stat-value"><%= @book.reviews.count %></span>
+                  <span class="stat-label">Total Reviews</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-value">
+                    <%= number_with_precision(@book.reviews.average(:rating), precision: 1) || 0 %>
+                  </span>
+                  <span class="stat-label">Average Rating</span>
+                </div>
+              </div>
+            </div>
+          </div>
 
           <% if @book.reviews.any? %>
-            <ul class="list-group mb-4">
+            <div class="reviews-list">
               <% @book.reviews.each do |review| %>
                 <% next if review.id.nil? %>
-                <li class="list-group-item d-flex justify-content-between align-items-center rounded-3 mb-2 shadow-sm">
-                  <div>
-                    <span class="badge bg-primary me-2"><i class="bi bi-star-fill"></i> <%= review.rating %></span>
-                    <strong>Comment:</strong> <%= review.comment %>
-                    <br>
-                    <small class="text-muted"><i class="bi bi-clock me-1"></i><%= review.created_at.strftime("%b %d, %Y") if review.created_at.present? %></small>
+                <div class="review-card">
+                  <div class="review-header">
+                    <div class="reviewer-info">
+                      <div class="rating">
+                        <% review.rating.times do %>
+                          <i class="bi bi-star-fill"></i>
+                        <% end %>
+                        <% (5 - review.rating).times do %>
+                          <i class="bi bi-star"></i>
+                        <% end %>
+                      </div>
+                      <div class="review-date">
+                        <i class="bi bi-clock me-1"></i>
+                        <%= review.created_at.strftime("%B %d, %Y") if review.created_at.present? %>
+                      </div>
+                    </div>
+                    <div class="review-actions">
+                      <%= link_to edit_book_review_path(@book, review), class: "btn btn-warning", title: "Edit Review" do %>
+                        <i class="bi bi-pencil me-1"></i> Edit
+                      <% end %>
+                      <%= link_to book_review_path(@book, review), 
+                          method: :delete, 
+                          data: { confirm: "Are you sure you want to delete this review?" },
+                          class: "btn btn-danger",
+                          title: "Delete Review" do %>
+                        <i class="bi bi-trash me-1"></i> Delete
+                      <% end %>
+                    </div>
                   </div>
-                  <div>
-                    <%= link_to "Edit", edit_book_review_path(@book, review), class: "btn btn-sm btn-warning rounded-pill fw-semibold" %>
+                  <div class="review-content">
+                    <p><%= review.comment %></p>
                   </div>
-                </li>
+                </div>
               <% end %>
-            </ul>
+            </div>
           <% else %>
-            <p class="text-muted fst-italic">No reviews yet.</p>
+            <div class="no-reviews">
+              <i class="bi bi-chat-square-text"></i>
+              <p>No reviews yet. Be the first to review this book!</p>
+            </div>
           <% end %>
 
-          <h4 class="mt-4 mb-3 text-primary fw-semibold">
-            <i class="bi bi-plus-circle me-2"></i>
-            Add a Review
-          </h4>
+          <div class="add-review-section">
+            <h3>
+              <i class="bi bi-plus-circle me-2"></i>
+              Add a Review
+            </h3>
 
-          <% if @review && @review.errors.any? %>
-            <div class="alert alert-danger">
-              <ul class="mb-0">
-                <% @review.errors.full_messages.each do |msg| %>
-                  <li><%= msg %></li>
+            <% if @review && @review.errors.any? %>
+              <div class="alert alert-danger">
+                <ul class="mb-0">
+                  <% @review.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
+
+            <%= form_with(model: [@book, @review], local: true, class: "review-form") do |form| %>
+              <div class="form-group">
+                <%= form.label :rating, class: "form-label" do %>
+                  Rating <span class="required">*</span>
                 <% end %>
-              </ul>
-            </div>
-          <% end %>
+                <div class="rating-input">
+                  <% 5.downto(1) do |i| %>
+                    <%= form.radio_button :rating, i, class: "rating-radio", required: true %>
+                    <%= form.label "rating_#{i}", class: "rating-label" do %>
+                      <i class="bi bi-star-fill"></i>
+                      <span class="rating-number"><%= i %></span>
+                    <% end %>
+                  <% end %>
+                </div>
+                <small class="form-text">Select a rating from 1 to 5 stars</small>
+              </div>
 
-          <%= form_with(model: [@book, @review], local: true) do |form| %>
-            <div class="mb-3">
-              <%= form.label :rating, class: "form-label fw-semibold" %>
-              <%= form.number_field :rating, in: 1..5, step: 1, class: "form-control rounded-pill px-4 py-2", placeholder: "Rating (1-5)" %>
-            </div>
+              <div class="form-group">
+                <%= form.label :comment, class: "form-label" do %>
+                  Your Review <span class="required">*</span>
+                <% end %>
+                <%= form.text_area :comment, 
+                    class: "form-control", 
+                    rows: 4, 
+                    required: true,
+                    minlength: 10,
+                    placeholder: "Share your thoughts about this book... (minimum 10 characters)" %>
+                <small class="form-text">Please provide a detailed review of at least 10 characters</small>
+              </div>
 
-            <div class="mb-3">
-              <%= form.label :comment, class: "form-label fw-semibold" %>
-              <%= form.text_area :comment, class: "form-control rounded-3 px-4 py-2", placeholder: "Your review..." %>
-            </div>
-
-            <div class="d-grid">
-              <%= form.submit "Submit", class: "btn btn-primary btn-lg rounded-pill fw-semibold shadow-sm" %>
-            </div>
-          <% end %>
+              <%= form.submit "Submit Review", class: "btn btn-primary btn-lg" %>
+            <% end %>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
 
+<style>
+  .book-show-page {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    min-height: 100vh;
+  }
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  .book-details-card {
+    background: white;
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .book-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+  }
+
+  .book-title-section {
+    flex: 1;
+  }
+
+  .book-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #2d3748;
+    margin: 0 0 0.5rem 0;
+  }
+
+  .book-meta {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #6c757d;
+    font-size: 0.875rem;
+  }
+
+  .book-actions {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .book-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 0.5rem;
+    border: 1px solid #e9ecef;
+  }
+
+  .info-item i {
+    font-size: 1.25rem;
+    color: #4299e1;
+  }
+
+  .info-item label {
+    display: block;
+    font-size: 0.75rem;
+    color: #6c757d;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.25rem;
+  }
+
+  .info-item span {
+    font-size: 1rem;
+    color: #2d3748;
+    font-weight: 500;
+  }
+
+  .reviews-section {
+    background: white;
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 2rem;
+  }
+
+  .section-header {
+    margin-bottom: 1.5rem;
+  }
+
+  .header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .section-header h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #2d3748;
+    margin: 0;
+  }
+
+  .review-stats {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .stat-item {
+    text-align: center;
+  }
+
+  .stat-value {
+    display: block;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #2d3748;
+  }
+
+  .stat-label {
+    font-size: 0.75rem;
+    color: #6c757d;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .reviews-list {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .review-card {
+    background: #f8f9fa;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    border: 1px solid #e9ecef;
+  }
+
+  .review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.75rem;
+  }
+
+  .reviewer-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .rating {
+    color: #fbbf24;
+    font-size: 1rem;
+  }
+
+  .review-date {
+    color: #6c757d;
+    font-size: 0.875rem;
+  }
+
+  .review-actions {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .review-content {
+    margin-top: 0.75rem;
+  }
+
+  .review-content p {
+    color: #4a5568;
+    font-size: 1rem;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .no-reviews {
+    text-align: center;
+    padding: 2rem;
+    background: #f8f9fa;
+    border-radius: 0.5rem;
+    border: 2px dashed #e9ecef;
+  }
+
+  .no-reviews i {
+    font-size: 2rem;
+    color: #cbd5e0;
+    margin-bottom: 0.75rem;
+  }
+
+  .add-review-section {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e9ecef;
+  }
+
+  .add-review-section h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #2d3748;
+    margin-bottom: 1rem;
+  }
+
+  .review-form {
+    max-width: 600px;
+  }
+
+  .form-group {
+    margin-bottom: 1.25rem;
+  }
+
+  .form-label {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-weight: 500;
+    color: #4a5568;
+    margin-bottom: 0.5rem;
+  }
+
+  .required {
+    color: #ef4444;
+  }
+
+  .form-text {
+    font-size: 0.875rem;
+    color: #6c757d;
+    margin-top: 0.25rem;
+  }
+
+  .rating-input {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .rating-radio {
+    display: none;
+  }
+
+  .rating-label {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    color: #e2e8f0;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: #f8f9fa;
+    border: 2px solid #e2e8f0;
+    border-radius: 0.5rem;
+  }
+
+  .rating-number {
+    position: absolute;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #6c757d;
+    bottom: 0.25rem;
+  }
+
+  .rating-label:hover,
+  .rating-label:hover ~ .rating-label,
+  .rating-radio:checked ~ .rating-label {
+    color: #fbbf24;
+    border-color: #fbbf24;
+    background: #fff;
+    transform: translateY(-2px);
+  }
+
+  .rating-radio:checked ~ .rating-label .rating-number {
+    color: #92400e;
+  }
+
+  .form-control {
+    border-radius: 0.5rem;
+    border: 1px solid #e2e8f0;
+    padding: 0.75rem;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+  }
+
+  .form-control:focus {
+    border-color: #4299e1;
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
+    outline: none;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 1rem;
+    font-weight: 500;
+    border-radius: 0.5rem;
+    transition: all 0.2s ease;
+    border: none;
+    cursor: pointer;
+  }
+
+  .btn:hover {
+    transform: translateY(-1px);
+  }
+
+  .btn-primary {
+    background: #4299e1;
+    color: white;
+  }
+
+  .btn-primary:hover {
+    background: #3182ce;
+  }
+
+  .btn-warning {
+    background: #fbbf24;
+    color: #92400e;
+  }
+
+  .btn-warning:hover {
+    background: #f59e0b;
+  }
+
+  .btn-danger {
+    background: #ef4444;
+    color: white;
+  }
+
+  .btn-danger:hover {
+    background: #dc2626;
+  }
+
+  .btn-outline-primary {
+    background: transparent;
+    border: 1px solid #4299e1;
+    color: #4299e1;
+  }
+
+  .btn-outline-primary:hover {
+    background: #4299e1;
+    color: white;
+  }
+
+  .alert {
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: none;
+  }
+
+  .alert-danger {
+    background: #fee2e2;
+    color: #dc2626;
+  }
+
+  .alert-success {
+    background: #dcfce7;
+    color: #16a34a;
+  }
+
+  @media (max-width: 768px) {
+    .book-header {
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .book-actions {
+      width: 100%;
+      justify-content: flex-end;
+    }
+
+    .header-content {
+      flex-direction: column;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    .review-stats {
+      width: 100%;
+      justify-content: space-between;
+    }
+
+    .review-header {
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .review-actions {
+      width: 100%;
+      justify-content: flex-end;
+    }
+  }
+</style>
 

@@ -41,7 +41,7 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
 
   test "should update book" do
     patch book_path(@book), params: { book: { title: "Updated Title" } }
-    assert_redirected_to dashboard_path(@book)
+    assert_redirected_to dashboard_path
     @book.reload
     assert_equal "Updated Title", @book.title
   end
@@ -54,8 +54,8 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should not show other users books" do
-  login_as(users(:one))
-  get book_url(books(:two)) # book owned by users(:two), not users(:one)
-  assert_response :missing # or expect a RecordNotFound
-end
+    other_book = books(:two)
+    get book_path(other_book)
+    assert_response :missing
+  end
 end

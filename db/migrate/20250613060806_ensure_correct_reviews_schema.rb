@@ -28,4 +28,4 @@ class EnsureCorrectReviewsSchema < ActiveRecord::Migration[8.0]
   def down
     # No need for down migration as we want to keep this state
   end
-end 
+end

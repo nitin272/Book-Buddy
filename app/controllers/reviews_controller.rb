@@ -2,14 +2,13 @@ class ReviewsController < ApplicationController
   before_action :require_login
   before_action :set_book
   before_action :set_review, only: [ :edit, :update, :destroy ]
-  before_action :authorize_review_owner, only: [ :edit, :update, :destroy ]
 
   def index
-    @reviews = @book.reviews.includes(:user).order(created_at: :desc)
+    @reviews = @book.reviews.order(created_at: :desc)
   end
 
   def show
-    @review = @book.reviews.includes(:user).find_by(id: params[:id])
+    @review = @book.reviews.find_by(id: params[:id])
     unless @review
       redirect_to @book, alert: "Review not found."
     end
@@ -24,7 +23,6 @@ class ReviewsController < ApplicationController
 
   def create
     @review = @book.reviews.build(review_params)
-    @review.user = current_user
 
     if @review.save
       redirect_to @book, notice: "Review was successfully created."
@@ -59,14 +57,6 @@ class ReviewsController < ApplicationController
     @review = @book.reviews.find_by(id: params[:id])
     unless @review
       redirect_to @book, alert: "Review not found."
-    end
-  end
-
-  def authorize_review_owner
-    unless @review.user == current_user
-      flash[:alert] = "You are not authorized to perform this action."
-      redirect_to @book
-      false
     end
   end
 

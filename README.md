@@ -1,304 +1,234 @@
 # BookBuddy 📚
-*Your personal book review companion built with Ruby on Rails*
 
-[![Ruby Version](https://img.shields.io/badge/ruby-3.0%2B-red)]()
-[![Rails Version](https://img.shields.io/badge/rails-7.0%2B-red)]()
+BookBuddy is a modern web application built with Ruby on Rails that helps users manage their reading journey, track books, and connect with other readers.
 
-> A simple, personal book tracking app where you can add books to your collection and write reviews - just for you.
+## 🌟 Features
 
----
+- 📖 Book tracking and management
+- 👤 User authentication and authorization
+- 📊 Reading progress tracking
+- 🔒 Secure session management with expiry
+- 🎨 Modern UI with Hotwire and Stimulus
+- 📱 Responsive design for all devices
+- 🔐 Secure password handling
+- 🐳 Docker support for easy deployment
+- 📝 Book reviews and ratings
+- 👥 User profiles and social features
 
-## About BookBuddy
+## 🛠️ Tech Stack
 
-BookBuddy is a feature-rich personal book management application built with Ruby on Rails. Designed for book enthusiasts who want to maintain a digital library of their reading experiences, BookBuddy provides a clean, intuitive interface for managing your literary journey.
+- **Backend**: 
+  - Ruby on Rails 8.0.2
+  - Ruby 3.x
+  - PostgreSQL
+- **Frontend**: 
+  - Hotwire (Turbo & Stimulus)
+  - Import Maps for JavaScript
+  - Propshaft asset pipeline
+  - Modern CSS with Tailwind
+- **Authentication**: 
+  - Custom authentication system
+  - Session management
+  - Password encryption
+- **Deployment**: 
+  - Kamal for deployment
+  - Docker containerization
+- **Testing**: 
+  - RSpec
+  - Capybara
+  - Selenium WebDriver
+- **Security**: 
+  - Brakeman for vulnerability scanning
+  - CSRF protection
+  - XSS prevention
+  - Secure headers
 
-### Why BookBuddy?
-- **Privacy First**: Your reading data stays private and secure
-- **Simple Yet Powerful**: Easy to use but packed with useful features  
-- **Personalized Experience**: Tailored dashboard just for you
-- **Open Source**: Free to use, modify, and contribute to
+## 📋 Prerequisites
 
----
+Before you begin, ensure you have the following installed:
 
-## Key Features
+- Ruby 3.x
+- PostgreSQL
+- Node.js (for asset compilation)
+- Docker (optional, for containerized deployment)
+- Git
 
-### 📖 **Book Management**
-- Add books with detailed information (title, author, genre, publication year)
-- Organize your personal book collection
-- Track reading status and progress
+## 🚀 Getting Started
 
-### ⭐ **Review System** 
-- Write detailed reviews for each book
-- Rate books using a 5-star system
-- Add reading notes and favorite quotes
-- Keep track of your thoughts on every book
+### Local Development Setup
 
-### 🔐 **User Authentication**
-- Secure user registration and login
-- Session management with Rails
-- Account settings and preferences
-- Personal, private book collections
-
-### 🎨 **Modern Interface**
-- Responsive design that works on all devices
-- Clean, Bootstrap-powered UI
-- Intuitive navigation and user experience
-- Personal dashboard with reading statistics
-
-### 📊 **Personal Dashboard**
-- View all your books and reviews in one place
-- See reading statistics and progress
-- Quick access to recent additions
-- Overview of your reading journey
-
----
-
-## Technology Stack
-
-### Backend
-- **Ruby on Rails 7.0+**: Web application framework
-- **Ruby 3.0+**: Programming language  
-- **SQLite**: Development database
-- **PostgreSQL**: Production database (recommended)
-
-### Frontend
-- **Bootstrap 5**: CSS framework for responsive design
-- **ERB Templates**: Server-side rendering
-- **JavaScript**: Interactive frontend features
-
-### Development Tools
-- **RSpec**: Testing framework
-- **Rubocop**: Code linting and style guide
-- **Bundler**: Ruby dependency management
-- **Git**: Version control
-
----
-
-## Getting Started
-
-### System Requirements
-- **Ruby**: 3.0 or higher
-- **Rails**: 7.0 or higher
-- **Database**: SQLite (development), PostgreSQL (production recommended)
-- **Node.js**: 16+ (for asset compilation)
-- **Git**: For version control
-
-### Installation
-
-#### Step 1: Clone the Repository
-```bash
-git clone https://github.com/My-Boy001/Book-Buddy.git
-cd bookbuddy
-```
-
-#### Step 2: Install Dependencies
-```bash
-bundle install
-npm install
-```
-
-#### Step 3: Database Setup
-```bash
-rails db:create
-rails db:migrate
-rails db:seed
-```
-
-#### Step 4: Environment Configuration
-```bash
-
-cp .env.example .env
-- Database credentials
-- Secret keys
-- Third-party API keys (if any)
-```
-
-#### Step 5: Start the Application
-```bash
-rails server
-```
-
-Visit `http://localhost:3000` to start using BookBuddy!
-
----
-
-## How to Use BookBuddy
-
-### Getting Started with Your Book Collection
-
-1. **Create Your Account**
-   - Visit the homepage and click "Sign Up"
-   - Fill in your details and create your profile
-   - Log in to access your personal dashboard
-
-2. **Add Your First Book**
-   - Click "Add Book" from your dashboard
-   - Enter book details (title, author, genre, etc.)
-   - Set reading status and add personal notes
-
-3. **Write Reviews**
-   - Navigate to any book in your collection
-   - Click "Write Review" 
-   - Rate the book (1-5 stars) and share your thoughts
-   - Add favorite quotes or reading notes
-
-4. **Explore Your Dashboard**
-   - View all your books and reviews
-   - See reading statistics and progress
-   - Quick access to recent additions and reviews
-
----
-
-## Routes Overview
-
-```ruby
-Rails.application.routes.draw do
-  get "pages/about"
-  root "home#index"
-  get "home/index"
-
-  resources :users
-  resources :books do
-    resources :reviews
-  end
-
-  get "dashboard/index"
-  get "/dashboard", to: "dashboard#index"
-
-  get    "/signup",  to: "users#new"
-  post   "/signup",  to: "users#create"
-
-  get    "/login",   to: "sessions#new"
-  post   "/login",   to: "sessions#create"
-  get    "/logout",  to: "sessions#destroy"
-  get    "/about",   to: "pages#about"
-
-  get "up" => "rails/health#show", as: :rails_health_check
-end
-```
-
----
-
-## Deployment
-
-### Render Deployment (Recommended)
-
-1. **Connect GitHub Repository**
-   - Push your project to GitHub
-   - Go to [Render.com](https://render.com) and connect your GitHub repo
-
-2. **Create a New Web Service**
-   - Choose "Web Service" from Render dashboard
-   - Set the build and start commands:
+1. **Clone the repository**
    ```bash
-   bundle install && rails assets:precompile
-   bundle exec puma -C config/puma.rb
+   git clone https://github.com/yourusername/bookbuddy.git
+   cd bookbuddy
    ```
 
-3. **Set Up PostgreSQL Database**
-   - Create a PostgreSQL service on Render
-   - Link it to your Web Service
+2. **Install Ruby dependencies**
+   ```bash
+   bundle install
+   ```
 
-4. **Configure Environment Variables**
-   Required environment variables for production:
-   - `DATABASE_URL` (automatically set when linking the Render DB)
-   - `RAILS_MASTER_KEY` (your Rails master key for credentials)
-   - `RAILS_ENV=production`
-   - `SECRET_KEY_BASE` (generate with `rails secret`)
+3. **Install JavaScript dependencies**
+   ```bash
+   yarn install
+   ```
 
-### Alternative Deployment Options
-- **Heroku**: Classic Rails deployment platform
-- **Docker**: Containerization support included
-- **VPS**: Deploy on any Linux server with Passenger/Nginx
+4. **Set up the database**
+   ```bash
+   # Create the database
+   rails db:create
+   
+   # Run migrations
+   rails db:migrate
+   
+   # (Optional) Seed the database with sample data
+   rails db:seed
+   ```
 
----
+5. **Configure environment variables**
+   ```bash
+   # Copy the example environment file
+   cp .env.example .env
+   
+   # Edit .env with your configuration
+   # Make sure to set up your database credentials
+   ```
 
-## Project Structure
+6. **Start the development server**
+   ```bash
+   # Start the Rails server with Hotwire
+   ./bin/dev
+   ```
 
-```
-bookbuddy/
-├── app/
-│   ├── controllers/        
-│   ├── models/            
-│   ├── views/            
-│   ├── helpers/         
-│   └── assets/           
-├── config/
-│   ├── routes.rb         
-│   ├── database.yml       
-│   └── application.rb     
-configuration  
-├── db/
-│   ├── migrate/         
-│   └── seeds.rb          
-├── spec/                 
-├── public/               
-└── Gemfile              
-```
+7. **Access the application**
+   - Open your browser and navigate to `http://localhost:3000`
+   - Default admin credentials (if seeded):
+     - Email: admin@example.com
+     - Password: password
 
----
+### Docker Setup
 
-## Contributing
+1. **Build the Docker image**
+   ```bash
+   docker build -t bookbuddy .
+   ```
 
-We welcome contributions from the community! Here's how you can help:
+2. **Run the container**
+   ```bash
+   docker run -p 3000:3000 \
+     -e DATABASE_URL=postgres://postgres:password@db:5432/bookbuddy \
+     -e RAILS_ENV=development \
+     bookbuddy
+   ```
 
-### How to Contribute
-1. **Fork the repository** on GitHub
-2. **Create a feature branch**: `git checkout -b feature/amazing-feature`
-3. **Make your changes** and add tests if needed
-4. **Run the test suite**: `bundle exec rspec`
-5. **Commit your changes**: `git commit -m 'Add amazing feature'`
-6. **Push to the branch**: `git push origin feature/amazing-feature`
-7. **Open a Pull Request** with a clear description
+3. **Run with Docker Compose (recommended)**
+   ```bash
+   docker-compose up
+   ```
 
-### Development Setup
+## 🧪 Testing
+
+### Running Tests
+
 ```bash
-bundle install --with development test
-bundle exec rspec
-bundle exec rubocop
-bundle exec brakeman
+# Run all tests
+rails test
+
+# Run specific test files
+rails test test/models/user_test.rb
+
+# Run system tests
+rails test:system
 ```
 
-### Testing
+### Test Coverage
+
 ```bash
-bundle exec rspec
-bundle exec rspec spec/models/book_spec.rb
-bundle exec rspec --format documentation
+# Generate coverage report
+COVERAGE=true rails test
 ```
 
----
+## 🔒 Security
 
-## Troubleshooting
+The application implements several security measures:
 
-### Common Issues
+- Session expiry management
+- CSRF protection
+- Secure password handling with bcrypt
+- Regular security scanning with Brakeman
+- XSS prevention
+- SQL injection protection
+- Secure headers configuration
 
-**Database Connection Errors**
-```bash
-rails db:drop db:create db:migrate db:seed
-```
+## 📦 Deployment
 
-**Asset Compilation Issues**
-```bash
-rails assets:precompile
-```
+### Using Kamal
 
-**Missing Dependencies**
-```bash
-bundle install
-npm install
-```
+1. **Initial setup**
+   ```bash
+   kamal setup
+   ```
 
-**Rails Server Won't Start**
-- Check if port 3000 is already in use
-- Try starting on a different port: `rails server -p 3001`
-- Ensure all migrations are run: `rails db:migrate`
+2. **Deploy the application**
+   ```bash
+   kamal deploy
+   ```
 
----
+3. **Monitor the deployment**
+   ```bash
+   kamal app logs
+   ```
 
-**Last Updated**: June 10, 2025  
-**Version**: 1.5.0  
-**Status**: Actively Maintained
+### Manual Deployment
 
----
+1. **Prepare the application**
+   ```bash
+   # Precompile assets
+   rails assets:precompile
+   
+   # Run database migrations
+   rails db:migrate
+   ```
 
-*Made with ❤️ by book lovers, for book lovers*
+2. **Start the server**
+   ```bash
+   rails server -e production
+   ```
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+### Development Guidelines
+
+- Follow the Ruby style guide
+- Write tests for new features
+- Update documentation as needed
+- Keep commits atomic and well-described
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👥 Authors
+
+- Your Name - Initial work
+
+## 🙏 Acknowledgments
+
+- Ruby on Rails team
+- All contributors and supporters of the project
+- The open-source community
+
+## 🆘 Support
+
+If you encounter any issues or have questions:
+
+1. Check the [Issues](https://github.com/yourusername/bookbuddy/issues) page
+2. Create a new issue if your problem isn't already listed
+3. Join our community chat (if available)
+

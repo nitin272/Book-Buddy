@@ -59,7 +59,7 @@ Before you begin, ensure you have the following installed:
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/bookbuddy.git
+   git clone [https://github.com/yourusername/bookbuddy.git](https://github.com/My-Boy001/Book-Buddy.git)
    cd bookbuddy
    ```
 

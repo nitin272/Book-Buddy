@@ -1,8 +1,6 @@
 class User < ApplicationRecord
   has_secure_password
   has_many :books, dependent: :destroy
-  has_many :reviews, dependent: :destroy
-  has_one_attached :avatar
 
   validates :name, presence: true, length: { minimum: 2, maximum: 50 }
   validates :email, presence: true, uniqueness: { case_sensitive: false }

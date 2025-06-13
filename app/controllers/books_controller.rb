@@ -1,7 +1,7 @@
 class BooksController < ApplicationController
   before_action :require_login
-  before_action :set_book, only: [:show, :edit, :update, :destroy]
-  before_action :authorize_book_owner, only: [:show, :edit, :update, :destroy]
+  before_action :set_book, only: [ :show, :edit, :update, :destroy ]
+  before_action :authorize_book_owner, only: [ :show, :edit, :update, :destroy ]
 
   def index
     @books = current_user.books.order(created_at: :desc)
@@ -54,7 +54,7 @@ class BooksController < ApplicationController
   def authorize_book_owner
     unless @book.user == current_user
       render file: "public/404.html", status: :not_found
-      return
+      nil
     end
   end
 

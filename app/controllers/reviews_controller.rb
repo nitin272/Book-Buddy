@@ -1,8 +1,8 @@
 class ReviewsController < ApplicationController
   before_action :require_login
   before_action :set_book
-  before_action :set_review, only: [:edit, :update, :destroy]
-  before_action :authorize_review_owner, only: [:edit, :update, :destroy]
+  before_action :set_review, only: [ :edit, :update, :destroy ]
+  before_action :authorize_review_owner, only: [ :edit, :update, :destroy ]
 
   def index
     @reviews = @book.reviews.includes(:user).order(created_at: :desc)
@@ -66,7 +66,7 @@ class ReviewsController < ApplicationController
     unless @review.user == current_user
       flash[:alert] = "You are not authorized to perform this action."
       redirect_to @book
-      return false
+      false
     end
   end
 

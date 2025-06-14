@@ -13,7 +13,7 @@ class ReviewsTest < ApplicationSystemTestCase
     visit login_path
     fill_in "Email", with: user.email
     fill_in "Password", with: "nitin"
-    click_on "Login"
+    click_on "Sign in"
   end
 
   test "visiting the book page shows reviews" do

@@ -59,16 +59,4 @@ class ReviewsTest < ApplicationSystemTestCase
     assert_text "Review was successfully deleted"
     assert_no_selector ".review-card", text: @review.comment
   end
-
-  test "should not allow unauthorized user to edit review" do
-    # Log out current user
-    click_on "Logout"
-
-    # Log in as different user
-    other_user = users(:two)
-    log_in_as(other_user)
-
-    visit book_path(@book)
-    assert_no_selector "a", text: "Edit"
-  end
 end

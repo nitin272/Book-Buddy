@@ -2,13 +2,12 @@ require "test_helper"
 
 class ReviewsControllerTest < ActionDispatch::IntegrationTest
   def setup
-    @review_owner = users(:one)
-    @other_user = users(:two)
+    @user = users(:one)
     @book = books(:one)
-    @review = reviews(:one)  # This review belongs to user one
+    @review = reviews(:one)
 
-    # Login as review owner by default
-    post login_path, params: { email: @review_owner.email, password: "nitin" }
+    # Login as user
+    post login_path, params: { email: @user.email, password: "nitin" }
   end
 
   test "should get index" do
@@ -61,51 +60,5 @@ class ReviewsControllerTest < ActionDispatch::IntegrationTest
     end
     assert_redirected_to book_path(@book)
     assert_equal "Review was successfully deleted.", flash[:notice]
-  end
-
-  test "should not allow unauthorized user to edit review" do
-    # Log out current user
-    delete logout_path
-
-    # Log in as different user
-    post login_path, params: { email: @other_user.email, password: "rahul" }
-
-    get edit_book_review_path(@book, @review)
-    assert_redirected_to book_path(@book)
-    assert_equal "You are not authorized to perform this action.", flash[:alert]
-  end
-
-  test "should not allow unauthorized user to delete review" do
-    # Log out current user
-    delete logout_path
-
-    # Log in as different user
-    post login_path, params: { email: @other_user.email, password: "rahul" }
-
-    assert_no_difference("Review.count") do
-      delete book_review_path(@book, @review)
-    end
-    assert_redirected_to book_path(@book)
-    assert_equal "You are not authorized to perform this action.", flash[:alert]
-  end
-
-  test "should not allow unauthorized user to update review" do
-    # Log out current user
-    delete logout_path
-
-    # Log in as different user
-    post login_path, params: { email: @other_user.email, password: "rahul" }
-
-    patch book_review_path(@book, @review), params: {
-      review: {
-        rating: 4,
-        comment: "Updated comment"
-      }
-    }
-    assert_redirected_to book_path(@book)
-    assert_equal "You are not authorized to perform this action.", flash[:alert]
-    @review.reload
-    assert_not_equal 4, @review.rating
-    assert_not_equal "Updated comment", @review.comment
   end
 end

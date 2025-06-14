@@ -2,10 +2,8 @@ one:
   comment: "Awesome read"
   rating: 5
   book: one
-  user: one
 
 two:
   comment: "Not my type"
   rating: 2
   book: two
-  user: two

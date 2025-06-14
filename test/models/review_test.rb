@@ -2,7 +2,6 @@ require "test_helper"
 
 class ReviewTest < ActiveSupport::TestCase
   def setup
-    @user = users(:one)
     @book = books(:one)
     @review = reviews(:one)
   end
@@ -30,11 +29,6 @@ class ReviewTest < ActiveSupport::TestCase
     assert @review.valid?
   end
 
-  test "should belong to a user" do
-    @review.user = nil
-    assert_not @review.valid?
-  end
-
   test "should belong to a book" do
     @review.book = nil
     assert_not @review.valid?
@@ -44,7 +38,6 @@ class ReviewTest < ActiveSupport::TestCase
     review = Review.new(
       comment: "Great book!",
       rating: 4,
-      user: @user,
       book: @book
     )
     assert review.valid?

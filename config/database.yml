@@ -17,6 +17,27 @@ production:
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
 
+  # Action Cable configuration
+  cable:
+    adapter: sqlite3
+    database: db/production.sqlite3
+    pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+    timeout: 5000
+
+  # Cache configuration
+  cache:
+    adapter: sqlite3
+    database: db/production.sqlite3
+    pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+    timeout: 5000
+
+  # Queue configuration
+  queue:
+    adapter: sqlite3
+    database: db/production.sqlite3
+    pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+    timeout: 5000
+
 
 
   

@@ -4,7 +4,8 @@ BookBuddy is a modern web application built with Ruby on Rails that helps users 
 
 
 
-## explanation-video = 
+## explanation-video = "link"
+
 ## 🌟 Features
 
 - 📖 Book tracking and management
